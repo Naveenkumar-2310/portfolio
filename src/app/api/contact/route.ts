@@ -121,8 +121,11 @@ export async function POST(request: Request) {
       }
     }
 
-    // Optional: Forward to Google Sheet Webhook (saves to spreadsheet + emails to Gmail)
-    const googleSheetWebhook = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+    // Forward to Google Sheet Webhook (saves to spreadsheet + emails to Gmail)
+    const googleSheetWebhook =
+      process.env.GOOGLE_SHEETS_WEBHOOK_URL ||
+      "https://script.google.com/macros/s/AKfycbxSIqYjVifvHMzd52V6oNjKImNSQaIRkMvr9XtbFV5Bx48S0oPBcUuqR6lr0PJHZyEX/exec";
+
     if (googleSheetWebhook) {
       try {
         await fetch(googleSheetWebhook, {
@@ -135,6 +138,7 @@ export async function POST(request: Request) {
             message,
             timestamp: new Date().toISOString(),
           }),
+          redirect: "follow",
         });
       } catch (sheetErr) {
         console.warn("Google Sheet forward warning:", sheetErr);

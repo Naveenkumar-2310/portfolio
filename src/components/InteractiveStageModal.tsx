@@ -180,11 +180,12 @@ export default function InteractiveStageModal({
           </div>
         </div>
 
-        {/* Center Dynamic Stage Canvas: Vividly Themed & Colorful */}
-        <div className="relative z-10 flex-1 overflow-y-auto p-4 sm:p-8 md:p-12 flex items-center justify-center">
+        {/* Center Dynamic Stage Canvas: Vividly Themed & Resilient Scroll Flow */}
+        <div className="relative z-10 flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 min-h-0 flex flex-col">
+          <div className="w-full max-w-5xl mx-auto my-auto py-2 sm:py-4">
           {/* Chapter 01: Profile */}
           {activeStage === 0 && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full max-w-6xl animate-in fade-in zoom-in-95 duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full animate-in fade-in zoom-in-95 duration-300">
               <div className="lg:col-span-7 space-y-5 sm:space-y-6">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-cyan-300 bg-gradient-to-r from-cyan-950/60 via-blue-950/40 to-indigo-950/60 border border-cyan-400/40 shadow-sm shadow-cyan-500/20">
                   <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
@@ -233,7 +234,7 @@ export default function InteractiveStageModal({
 
           {/* Chapter 02: Thinking (4 Vivid Neon Pillars) */}
           {activeStage === 1 && (
-            <div className="w-full max-w-5xl space-y-6 sm:space-y-8 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-full space-y-6 sm:space-y-8 animate-in fade-in zoom-in-95 duration-300">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-blue-300 bg-gradient-to-r from-blue-950/60 to-indigo-950/60 border border-blue-400/40 mb-3 shadow-sm shadow-blue-500/20">
                   <Brain className="w-3.5 h-3.5 text-blue-400" />
@@ -307,38 +308,40 @@ export default function InteractiveStageModal({
             </div>
           )}
 
-          {/* Chapter 03: Projects (Vividly Themed & Spotlighted Solo Project) */}
+          {/* Chapter 03: Projects (Symmetric Grid with Featured Solo Daily Tracker Span) */}
           {activeStage === 2 && (
-            <div className="w-full max-w-5xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-full space-y-4 sm:space-y-5 animate-in fade-in zoom-in-95 duration-300">
               <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-emerald-300 bg-gradient-to-r from-emerald-950/60 to-teal-950/60 border border-emerald-400/40 mb-2 shadow-sm shadow-emerald-500/20">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-emerald-300 bg-gradient-to-r from-emerald-950/60 to-teal-950/60 border border-emerald-400/40 mb-1.5 shadow-sm shadow-emerald-500/20">
                   <Code2 className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Chapter 03 // Production Systems</span>
                 </div>
-                <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
+                <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white">
                   Engineered <span className="text-gradient-cyan">Platforms</span>
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                 {PROJECTS.map((p) => {
                   const isSolo = p.id === "dailytracker";
                   return (
                     <div
                       key={p.id}
-                      className={`p-5 rounded-3xl transition-all duration-300 flex flex-col justify-between ${
+                      className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl transition-all duration-300 flex flex-col justify-between ${
                         isSolo
-                          ? "bg-gradient-to-br from-emerald-950/60 via-cyan-950/40 to-black border-2 border-emerald-400/80 shadow-2xl shadow-emerald-950/60 hover:scale-[1.01]"
+                          ? "sm:col-span-2 bg-gradient-to-br from-emerald-950/60 via-cyan-950/35 to-black border-2 border-emerald-400/80 shadow-2xl shadow-emerald-950/50 hover:border-emerald-300"
                           : p.id === "zenmarks"
-                          ? "bg-gradient-to-br from-cyan-950/40 via-blue-950/30 to-black border border-cyan-500/50 hover:border-cyan-400"
+                          ? "bg-gradient-to-br from-cyan-950/40 via-blue-950/30 to-black border border-cyan-500/40 hover:border-cyan-400"
                           : p.id === "zensecure"
-                          ? "bg-gradient-to-br from-teal-950/40 via-emerald-950/20 to-black border border-teal-500/50 hover:border-teal-400"
-                          : "bg-gradient-to-br from-purple-950/40 via-pink-950/20 to-black border border-purple-500/50 hover:border-purple-400"
+                          ? "bg-gradient-to-br from-teal-950/40 via-emerald-950/20 to-black border border-teal-500/40 hover:border-teal-400"
+                          : p.id === "parenting"
+                          ? "bg-gradient-to-br from-purple-950/40 via-pink-950/20 to-black border border-purple-500/40 hover:border-purple-400"
+                          : "bg-gradient-to-br from-indigo-950/40 via-zinc-950 to-black border border-indigo-500/40 hover:border-indigo-400"
                       }`}
                     >
                       <div>
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <h4 className="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                        <div className="flex items-center justify-between gap-2 mb-1.5">
+                          <h4 className="font-display text-base sm:text-lg font-bold text-white flex items-center gap-2">
                             <span>{p.title}</span>
                             {isSolo && (
                               <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-500/30 text-emerald-300 border border-emerald-400/60 shadow-sm shadow-emerald-500/40">
@@ -352,14 +355,14 @@ export default function InteractiveStageModal({
                             {p.role}
                           </span>
                         </div>
-                        <p className="font-sans text-xs text-zinc-300 mb-3 leading-relaxed">
+                        <p className="font-sans text-xs text-zinc-300 mb-2.5 leading-relaxed">
                           {p.description}
                         </p>
                       </div>
 
-                      <div className="space-y-3 pt-2 border-t border-white/10">
-                        <div className="flex flex-wrap gap-1.5 font-mono text-[10px] text-zinc-300">
-                          {p.techStack.slice(0, 5).map((t) => (
+                      <div className="space-y-2.5 pt-2 border-t border-white/10">
+                        <div className="flex flex-wrap gap-1 font-mono text-[10px] text-zinc-300">
+                          {p.techStack.slice(0, isSolo ? 6 : 5).map((t) => (
                             <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-zinc-200">
                               {t}
                             </span>
@@ -387,7 +390,7 @@ export default function InteractiveStageModal({
 
           {/* Chapter 04: AI Studio (Vibrant Cognitive Pipeline Terminal) */}
           {activeStage === 3 && (
-            <div className="w-full max-w-4xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-full space-y-6 animate-in fade-in zoom-in-95 duration-300">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-amber-300 bg-gradient-to-r from-amber-950/60 to-orange-950/60 border border-amber-400/40 mb-2 shadow-sm shadow-amber-500/20">
                   <Cpu className="w-3.5 h-3.5 text-amber-400" />
@@ -434,7 +437,7 @@ export default function InteractiveStageModal({
 
           {/* Chapter 05: Journey & 9.10 CGPA (Royal Purple & Gold + Emerald) */}
           {activeStage === 4 && (
-            <div className="w-full max-w-4xl space-y-6 sm:space-y-8 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-full space-y-6 sm:space-y-8 animate-in fade-in zoom-in-95 duration-300">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-purple-300 bg-gradient-to-r from-purple-950/60 to-pink-950/60 border border-purple-400/40 mb-2 shadow-sm shadow-purple-500/20">
                   <Calendar className="w-3.5 h-3.5 text-purple-400" />
@@ -483,7 +486,7 @@ export default function InteractiveStageModal({
 
           {/* Chapter 06: Contact (Vibrant Direct Transmission Hub) */}
           {activeStage === 5 && (
-            <div className="w-full max-w-3xl space-y-6 text-center animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-full space-y-6 text-center animate-in fade-in zoom-in-95 duration-300">
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold text-rose-300 bg-gradient-to-r from-rose-950/60 to-cyan-950/60 border border-rose-400/40 mb-2 shadow-sm shadow-rose-500/20">
                   <Terminal className="w-3.5 h-3.5 text-rose-400" />
@@ -550,6 +553,7 @@ export default function InteractiveStageModal({
               </div>
             </div>
           )}
+          </div>
         </div>
 
         {/* Bottom Navigation & Chapter Progression Bar */}

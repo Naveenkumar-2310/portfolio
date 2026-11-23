@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import {
   X,
   ChevronLeft,
@@ -11,11 +12,20 @@ import {
   Cpu,
   Terminal,
   Calendar,
+  ExternalLink,
+  Mail,
+  Phone,
+  Copy,
+  Check,
+  Award,
 } from "lucide-react";
 import HolographicPortrait from "@/components/HolographicPortrait";
 import GitHubIcon from "@/components/icons/GitHubIcon";
-import { PROJECTS } from "@/data/portfolio-data";
+import LinkedInIcon from "@/components/icons/LinkedInIcon";
+import { PROJECTS, PERSONAL_INFO } from "@/data/portfolio-data";
 import { sound } from "@/lib/sound";
+
+const emptySubscribe = () => () => {};
 
 interface InteractiveStageProps {
   isOpen: boolean;
@@ -23,12 +33,12 @@ interface InteractiveStageProps {
 }
 
 const WORKSTATION_STAGES = [
-  { id: "overview", name: "01. Executive Overview", icon: Sparkles },
-  { id: "thinking", name: "02. Cognitive Architecture", icon: Brain },
-  { id: "systems", name: "03. Production Systems", icon: Code2 },
-  { id: "aistudio", name: "04. AI Prompt Engine", icon: Cpu },
-  { id: "trajectory", name: "05. Journey & 9.10 CGPA", icon: Calendar },
-  { id: "terminal", name: "06. Interactive Shell", icon: Terminal },
+  { id: "overview", number: "01", name: "Executive Profile", icon: Sparkles },
+  { id: "thinking", number: "02", name: "Cognitive Architecture", icon: Brain },
+  { id: "systems", number: "03", name: "Production Systems", icon: Code2 },
+  { id: "aistudio", number: "04", name: "AI Prompt Engine", icon: Cpu },
+  { id: "trajectory", number: "05", name: "Distinction & Journey", icon: Calendar },
+  { id: "terminal", number: "06", name: "Direct Transmission", icon: Terminal },
 ];
 
 export default function InteractiveStageModal({
@@ -36,6 +46,12 @@ export default function InteractiveStageModal({
   onClose,
 }: InteractiveStageProps) {
   const [activeStage, setActiveStage] = useState(0);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   const nextStage = () => {
     sound.click();
@@ -52,9 +68,21 @@ export default function InteractiveStageModal({
     setActiveStage(idx);
   };
 
+  const copyEmail = () => {
+    sound.click();
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  // Keyboard navigation and background scroll locking
   useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") {
         sound.click();
@@ -67,60 +95,85 @@ export default function InteractiveStageModal({
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-2xl p-2 sm:p-6 md:p-8 animate-in fade-in duration-300">
-      {/* Fullscreen Stage Shell */}
-      <div className="relative w-full max-w-[1500px] h-[95vh] sm:h-[92vh] glass-panel rounded-2xl sm:rounded-4xl border border-white/15 shadow-2xl overflow-hidden flex flex-col justify-between">
-        {/* Top Control Bar */}
-        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-zinc-900/80 border-b border-white/10 flex items-center justify-between gap-3 sm:gap-4 shrink-0">
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-3xl p-2 sm:p-5 md:p-8 animate-in fade-in duration-300 select-none"
+      onClick={onClose}
+    >
+      {/* Supreme Keynote Workstation Deck Shell */}
+      <div
+        className="relative w-full max-w-[1550px] h-[96vh] sm:h-[92vh] bg-[#090b12]/95 rounded-2xl sm:rounded-4xl border border-cyan-500/30 shadow-[0_0_80px_rgba(56,189,248,0.25)] overflow-hidden flex flex-col justify-between"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Ambient Radial Mesh Lighting Inside Deck */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-neural-grid opacity-25 pointer-events-none" />
+
+        {/* Top Control Bar: HUD Telemetry & Chapter Jumpers */}
+        <div className="relative z-10 px-4 sm:px-6 py-3 sm:py-4 bg-zinc-950/80 border-b border-white/10 flex items-center justify-between gap-3 sm:gap-4 shrink-0 backdrop-blur-xl">
+          {/* Left Brand Lockup */}
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <div className="flex items-center gap-1.5 shrink-0">
-              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/80" />
-              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80" />
-              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/40" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/40" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/40" />
             </div>
-            <span className="font-mono text-[11px] sm:text-xs text-white font-semibold truncate">
-              NAVEEN_KUMAR_P // WORKSTATION_STAGE
-            </span>
-            <span className="hidden md:inline font-mono text-[11px] text-cyan-400 px-2.5 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-500/30 shrink-0">
-              Interactive Deck Mode
-            </span>
+            <div className="flex items-center gap-2 truncate">
+              <span className="font-mono text-[11px] sm:text-xs text-white font-bold tracking-wider truncate">
+                NAVEEN_KUMAR_P // KEYNOTE_STAGE
+              </span>
+              <span className="hidden md:inline-flex items-center gap-1.5 font-mono text-[10px] text-cyan-300 px-2.5 py-0.5 rounded-full bg-cyan-950/50 border border-cyan-500/40 shadow-inner">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                Live Workstation
+              </span>
+            </div>
           </div>
 
-          {/* Stage Quick Jumper Buttons */}
-          <div className="hidden lg:flex items-center gap-1.5 font-mono text-xs">
-            {WORKSTATION_STAGES.map((stg, i) => (
-              <button
-                key={stg.id}
-                onClick={() => selectStage(i)}
-                className={`px-3 py-1 rounded-lg transition-all ${
-                  activeStage === i
-                    ? "bg-cyan-500 text-white font-bold shadow-md shadow-cyan-500/25"
-                    : "bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                {stg.name.split(" ")[0]}
-              </button>
-            ))}
+          {/* Center Stage Quick Jumper Tabs */}
+          <div className="hidden lg:flex items-center gap-1 p-1 rounded-2xl bg-white/5 border border-white/5 font-mono text-xs">
+            {WORKSTATION_STAGES.map((stg, i) => {
+              const Icon = stg.icon;
+              const isActive = activeStage === i;
+              return (
+                <button
+                  key={stg.id}
+                  onClick={() => selectStage(i)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md shadow-cyan-500/30 scale-105"
+                      : "text-zinc-400 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-zinc-400"}`} />
+                  <span>{stg.number}</span>
+                  <span className="hidden xl:inline">{stg.name}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Close Action */}
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="hidden sm:inline font-mono text-[10px] text-zinc-400">
-              [ESC or close]
+          {/* Right Action & Keyboard Shortcuts */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <span className="hidden sm:inline font-mono text-[10px] text-zinc-400 px-2 py-1 rounded bg-white/5 border border-white/5">
+              ← / → Navigate • ESC Exit
             </span>
             <button
               onClick={() => {
                 sound.click();
                 onClose();
               }}
-              className="p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              className="p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-rose-500/20 text-zinc-300 hover:text-rose-300 hover:border-rose-500/30 border border-transparent transition-colors cursor-pointer"
               aria-label="Exit Stage Mode"
+              title="Close Deck (ESC)"
             >
               <X className="w-5 h-5" />
             </button>
@@ -128,283 +181,331 @@ export default function InteractiveStageModal({
         </div>
 
         {/* Center Dynamic Stage Canvas */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 md:p-10 flex items-center justify-center">
-          {/* Stage 0: Executive Overview */}
+        <div className="relative z-10 flex-1 overflow-y-auto p-4 sm:p-8 md:p-12 flex items-center justify-center">
+          {/* Chapter 01: Executive Profile */}
           {activeStage === 0 && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full max-w-6xl animate-in fade-in zoom-in-95 duration-300">
-              <div className="lg:col-span-7 space-y-5">
-                <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block">
-                  Stage 01 // Executive Profile
-                </span>
-                <h2 className="font-display text-4xl sm:text-6xl font-extrabold text-white leading-tight">
-                  Naveen <span className="text-gradient-aurora">Kumar P</span>
-                </h2>
-                <p className="font-display text-xl sm:text-2xl text-zinc-200">
-                  Software Consultant • Virdhi Tech Lab
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full max-w-6xl animate-in fade-in zoom-in-95 duration-300">
+              <div className="lg:col-span-7 space-y-5 sm:space-y-6">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs text-cyan-400 bg-cyan-950/40 border border-cyan-500/30">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Chapter 01 // Executive Profile</span>
+                </div>
+
+                <div className="space-y-2">
+                  <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap">
+                    Naveen <span className="text-gradient-aurora">Kumar P</span>
+                  </h2>
+                  <p className="font-display text-xl sm:text-2xl lg:text-3xl font-medium text-zinc-200">
+                    Software Consultant &amp; Full-Stack AI Engineer
+                  </p>
+                </div>
+
+                <p className="font-sans text-sm sm:text-base text-zinc-300 leading-relaxed max-w-2xl">
+                  Decomposing complex real-world requirements into deterministic, high-throughput software architectures.
+                  Specialized in modern modular React.js and Next.js applications, robust Node.js microservices, and multi-turn generative AI prompt engineering pipelines.
                 </p>
-                <p className="font-sans text-sm sm:text-base text-zinc-400 leading-relaxed">
-                  Specialized in modern responsive React.js and Next.js
-                  platforms, high-throughput Node.js micro-backends, and
-                  automated AI prompt generation workflows.
-                </p>
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 font-mono text-xs text-zinc-300 space-y-1">
-                  <div>
-                    • Academic Rigor:{" "}
-                    <strong className="text-cyan-300">
-                      9.10 CGPA First Class with Distinction
-                    </strong>
+
+                {/* Key Executive Metrics */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                    <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider block">Academic Rigor</span>
+                    <span className="font-display text-lg font-bold text-cyan-300">9.10 CGPA</span>
+                    <span className="font-sans text-[11px] text-zinc-400 block">First Class with Distinction</span>
                   </div>
-                  <div>
-                    • Industry Impact:{" "}
-                    <strong className="text-white">
-                      Zenmarks.ai, ZenSecure, Parenting &amp; Corporate Portals
-                    </strong>
+                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                    <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider block">Current Role</span>
+                    <span className="font-display text-lg font-bold text-emerald-300">Consultant</span>
+                    <span className="font-sans text-[11px] text-zinc-400 block">Virdhi Tech Lab (02/2025–Present)</span>
                   </div>
-                  <div>
-                    • Core Stack:{" "}
-                    <strong className="text-amber-300">
-                      React 19, Next.js 15, Node.js, Knex, MySQL, GitLab
-                    </strong>
+                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                    <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-wider block">Featured Solo</span>
+                    <span className="font-display text-lg font-bold text-amber-300">Daily Tracker</span>
+                    <span className="font-sans text-[11px] text-zinc-400 block">100% Solo Personal Project</span>
                   </div>
                 </div>
               </div>
+
               <div className="lg:col-span-5 flex justify-center">
                 <HolographicPortrait />
               </div>
             </div>
           )}
 
-          {/* Stage 1: Thinking Architecture */}
+          {/* Chapter 02: Cognitive Architecture */}
           {activeStage === 1 && (
-            <div className="w-full max-w-5xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
-              <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block">
-                Stage 02 // Cognitive Architecture
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
-                How I <span className="text-gradient-aurora">Think</span> &amp;
-                Build
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-3xl bg-white/5 border border-white/10">
-                  <h4 className="font-display text-lg font-bold text-white mb-1">
-                    01. First Principles
-                  </h4>
-                  <p className="font-sans text-xs text-zinc-400">
-                    Deconstruct complex systems to physical &amp; logical axioms
-                    before writing code. Mechanical engineering discipline (9.10
-                    CGPA).
+            <div className="w-full max-w-5xl space-y-6 sm:space-y-8 animate-in fade-in zoom-in-95 duration-300">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 mb-3">
+                  <Brain className="w-3.5 h-3.5" />
+                  <span>Chapter 02 // Cognitive Architecture</span>
+                </div>
+                <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
+                  How I <span className="text-gradient-aurora">Think</span>, Deconstruct &amp; Build
+                </h2>
+                <p className="font-sans text-sm text-zinc-400 mt-2">
+                  First-principles engineering decomposes mechanical equilibrium into software concurrency, deterministic state, and zero-bloat modular systems.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all">
+                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-3 font-mono font-bold text-sm">
+                    01
+                  </div>
+                  <h4 className="font-display text-lg font-bold text-white mb-1.5">First-Principles Axioms</h4>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                    Break down complex systems into fundamental logical truths before writing a single line of code. Applied directly from mechanical engineering rigor (9.10 CGPA).
                   </p>
                 </div>
-                <div className="p-5 rounded-3xl bg-white/5 border border-white/10">
-                  <h4 className="font-display text-lg font-bold text-white mb-1">
-                    02. Reactive UI = f(State)
-                  </h4>
-                  <p className="font-sans text-xs text-zinc-400">
-                    Deterministic state machines, unidirectional data flow in
-                    Next.js, and strictly idempotent Node.js REST services.
+
+                <div className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-400/40 transition-all">
+                  <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-3 font-mono font-bold text-sm">
+                    02
+                  </div>
+                  <h4 className="font-display text-lg font-bold text-white mb-1.5">Reactive UI = f(State)</h4>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                    UI is a deterministic mathematical projection of application state. Zero side effects in render cycles, unidirectional data flow, and idempotent backend contracts.
                   </p>
                 </div>
-                <div className="p-5 rounded-3xl bg-white/5 border border-white/10">
-                  <h4 className="font-display text-lg font-bold text-white mb-1">
-                    03. Generative AI Prompt Loops
-                  </h4>
-                  <p className="font-sans text-xs text-zinc-400">
-                    Multi-turn structured JSON prompt pipelines for educational
-                    curriculum decomposition and exam synthesis.
+
+                <div className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-amber-400/40 transition-all">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3 font-mono font-bold text-sm">
+                    03
+                  </div>
+                  <h4 className="font-display text-lg font-bold text-white mb-1.5">Structured AI Prompt Pipelines</h4>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                    Prompt engineering is compiling natural language into reproducible, schema-validated JSON outputs. Engineered multi-tier context scaffolding in Zenmarks.ai.
                   </p>
                 </div>
-                <div className="p-5 rounded-3xl bg-white/5 border border-white/10">
-                  <h4 className="font-display text-lg font-bold text-white mb-1">
-                    04. Operational Resilience
-                  </h4>
-                  <p className="font-sans text-xs text-zinc-400">
-                    Containerized Portainer deployments, GitLab CI/CD, and
-                    robust error isolation preventing cascading faults.
+
+                <div className="p-5 sm:p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-emerald-400/40 transition-all">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-3 font-mono font-bold text-sm">
+                    04
+                  </div>
+                  <h4 className="font-display text-lg font-bold text-white mb-1.5">Operational Resilience</h4>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                    Code that cannot deploy reliably does not exist. Continuous delivery via Docker, Portainer, and GitLab CI/CD with health probes and fail-safe recovery.
                   </p>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Stage 2: Production Systems */}
+          {/* Chapter 03: Production Systems Portfolio */}
           {activeStage === 2 && (
             <div className="w-full max-w-5xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
-              <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block">
-                Stage 03 // Production Systems Portfolio
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
-                Engineered <span className="text-gradient-cyan">Platforms</span>
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {PROJECTS.map((p) => (
-                  <div
-                    key={p.id}
-                    className="p-5 rounded-3xl bg-white/5 border border-white/10 hover:border-cyan-500/40 transition-colors"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-display text-lg font-bold text-white">
-                        {p.title}
-                      </h4>
-                      <span className="font-mono text-[10px] text-cyan-400 px-2 py-0.5 rounded bg-white/5">
-                        {p.role}
-                      </span>
-                    </div>
-                    <p className="font-sans text-xs text-zinc-400 mb-3">
-                      {p.description}
-                    </p>
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <div className="flex flex-wrap gap-1.5 font-mono text-[10px] text-zinc-300">
-                        {p.techStack.slice(0, 4).map((t) => (
-                          <span
-                            key={t}
-                            className="px-2 py-0.5 rounded bg-white/5 border border-white/5"
-                          >
-                            {t}
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 mb-2">
+                  <Code2 className="w-3.5 h-3.5" />
+                  <span>Chapter 03 // Production Systems</span>
+                </div>
+                <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
+                  Engineered <span className="text-gradient-cyan">Platforms</span>
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                {PROJECTS.map((p) => {
+                  const isSolo = p.id === "dailytracker";
+                  return (
+                    <div
+                      key={p.id}
+                      className={`p-5 rounded-3xl transition-all duration-300 flex flex-col justify-between ${
+                        isSolo
+                          ? "bg-gradient-to-br from-cyan-950/40 via-emerald-950/20 to-black border-2 border-emerald-400/50 shadow-xl shadow-emerald-950/40"
+                          : "bg-white/5 border border-white/10 hover:border-cyan-500/40"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <h4 className="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                            <span>{p.title}</span>
+                            {isSolo && (
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                                100% SOLO PROJECT
+                              </span>
+                            )}
+                          </h4>
+                          <span className="font-mono text-[10px] text-cyan-300 px-2 py-0.5 rounded bg-white/5 shrink-0">
+                            {p.role}
                           </span>
-                        ))}
+                        </div>
+                        <p className="font-sans text-xs text-zinc-300 mb-3 leading-relaxed">
+                          {p.description}
+                        </p>
                       </div>
-                      {p.githubUrl && (
-                        <a
-                          href={p.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-mono text-[10px] text-cyan-300 bg-cyan-950/50 border border-cyan-500/40 hover:bg-cyan-500/20"
-                        >
-                          <GitHubIcon className="w-3 h-3 text-white" />
-                          <span>Repo</span>
-                        </a>
-                      )}
+
+                      <div className="space-y-3 pt-2 border-t border-white/5">
+                        <div className="flex flex-wrap gap-1.5 font-mono text-[10px] text-zinc-300">
+                          {p.techStack.slice(0, 5).map((t) => (
+                            <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/5">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                        {p.githubUrl && (
+                          <a
+                            href={p.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-xs font-semibold text-cyan-300 bg-cyan-950/60 border border-cyan-500/40 hover:bg-cyan-500/20 transition-colors"
+                          >
+                            <GitHubIcon className="w-3.5 h-3.5 text-white" />
+                            <span>View Source on GitHub</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
 
-          {/* Stage 3: AI Prompt Engine */}
+          {/* Chapter 04: Interactive AI Studio */}
           {activeStage === 3 && (
             <div className="w-full max-w-4xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
-              <span className="font-mono text-xs text-amber-400 uppercase tracking-widest block">
-                Stage 04 // Interactive AI Studio
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
-                Zenmarks.ai{" "}
-                <span className="text-gradient-neural">Cognitive Pipeline</span>
-              </h2>
-              <p className="font-sans text-sm text-zinc-300 leading-relaxed">
-                Transforms syllabus chapters into mental models, formulas, and
-                Bloom&apos;s Taxonomy exam questions using structured
-                multi-stage prompt engineering.
-              </p>
-              <div className="p-6 rounded-3xl bg-black/60 border border-white/10 font-mono text-xs text-zinc-300 space-y-3">
-                <div className="text-cyan-400 font-bold">
-                  &gt; EXEC_PIPELINE(concept: &quot;Distributed Consensus /
-                  Raft&quot;)
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs text-amber-400 bg-amber-950/40 border border-amber-500/30 mb-2">
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>Chapter 04 // AI Prompt Engineering Engine</span>
                 </div>
-                <div className="text-zinc-400 pl-4 border-l border-cyan-500/30">
-                  <div>
-                    1. Scaffolding: Distributed state replication across N nodes
-                  </div>
-                  <div>2. Analogy: Parliamentary speaker voting committee</div>
-                  <div>3. Formula: Quorum = floor(N / 2) + 1</div>
-                  <div>
-                    4. Exam Question: Under what condition is a log entry
-                    committed?
-                  </div>
+                <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
+                  Zenmarks.ai <span className="text-gradient-neural">Cognitive Pipeline</span>
+                </h2>
+                <p className="font-sans text-sm text-zinc-300 mt-1">
+                  Transforms raw textbook chapters into tailored pedagogy, formulas, and Bloom&apos;s Taxonomy exam evaluations via multi-stage prompt engineering.
+                </p>
+              </div>
+
+              {/* Terminal Simulation */}
+              <div className="p-5 sm:p-6 rounded-3xl bg-black/80 border border-cyan-500/30 font-mono text-xs text-zinc-300 space-y-3.5 shadow-2xl cyber-scanline">
+                <div className="flex items-center justify-between text-cyan-400 pb-2 border-b border-white/10">
+                  <span className="font-bold">&gt; EXEC_PIPELINE(concept: &quot;Distributed Consensus / Raft&quot;)</span>
+                  <span className="text-[10px] text-emerald-400">TELEMETRY: ACTIVE</span>
                 </div>
-                <div className="text-emerald-400 pt-2 border-t border-white/5">
-                  ✓ Pipeline Latency: 1.14s | Zero Hallucination Validation
+                <div className="text-zinc-400 pl-4 border-l border-cyan-500/40 space-y-1.5 leading-relaxed">
+                  <div>1. Scaffolding: Decompose distributed state replication across N active nodes.</div>
+                  <div>2. Intuitive Metaphor: Parliamentary speaker voting committee.</div>
+                  <div>3. Mathematical Anchor: Quorum = floor(N / 2) + 1.</div>
+                  <div>4. Exam Question: Under what failure scenario is a log entry considered committed?</div>
+                </div>
+                <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                  <span className="text-emerald-400 font-bold">✓ Generation Latency: 1.14s</span>
+                  <span className="text-cyan-300">Schema Compliance: 100% JSON Guaranteed</span>
+                  <span className="text-zinc-400">Model: Gemini / Claude Hybrid</span>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Stage 4: Trajectory & 9.10 CGPA */}
+          {/* Chapter 05: Journey & 9.10 CGPA */}
           {activeStage === 4 && (
-            <div className="w-full max-w-4xl space-y-6 animate-in fade-in zoom-in-95 duration-300">
-              <span className="font-mono text-xs text-violet-400 uppercase tracking-widest block">
-                Stage 05 // Trajectory &amp; Foundation
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
-                Experience &amp;{" "}
-                <span className="text-gradient-aurora">Distinction</span>
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-3">
-                  <span className="font-mono text-xs text-cyan-400">
-                    02/2025 – Present
-                  </span>
-                  <h4 className="font-display text-xl font-bold text-white">
-                    Software Consultant
-                  </h4>
-                  <p className="font-mono text-xs text-zinc-400">
-                    Virdhi Tech Lab P Ltd • Chennai, TN
-                  </p>
-                  <p className="font-sans text-xs text-zinc-300">
-                    Architecting reusable React/Next.js components, REST APIs in
-                    Node.js, and automated textbook prompt workflows.
+            <div className="w-full max-w-4xl space-y-6 sm:space-y-8 animate-in fade-in zoom-in-95 duration-300">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs text-violet-400 bg-violet-950/40 border border-violet-500/30 mb-2">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>Chapter 05 // Trajectory &amp; Foundation</span>
+                </div>
+                <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
+                  Experience &amp; <span className="text-gradient-aurora">Distinction</span>
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+                <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-3 hover:border-cyan-500/40 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs text-cyan-400 font-semibold">02/2025 – Present</span>
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">Active</span>
+                  </div>
+                  <h4 className="font-display text-xl font-bold text-white">Software Consultant</h4>
+                  <p className="font-mono text-xs text-zinc-400">Virdhi Tech Lab P Ltd • Chennai, TN</p>
+                  <p className="font-sans text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                    Engineering core web platforms using React.js and Next.js, building high-throughput Node.js REST services, and designing automated prompt workflows for client EdTech and security systems.
                   </p>
                 </div>
-                <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-3">
-                  <span className="font-mono text-xs text-violet-400">
-                    2020 – 2024
-                  </span>
-                  <h4 className="font-display text-xl font-bold text-white">
-                    B.E. Mechanical Engineering
-                  </h4>
-                  <p className="font-mono text-xs text-zinc-400">
-                    Sengunthar Engineering College • Namakkal
-                  </p>
-                  <div className="inline-block px-3 py-1 rounded-xl bg-violet-950/40 border border-violet-500/30 font-mono text-xs font-bold text-violet-300">
-                    CGPA: 9.10 / 10.0 (First Class Distinction)
+
+                <div className="p-6 rounded-3xl bg-white/5 border border-white/10 space-y-3 hover:border-violet-500/40 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs text-violet-400 font-semibold">2020 – 2024</span>
+                    <Award className="w-4 h-4 text-amber-400" />
                   </div>
+                  <h4 className="font-display text-xl font-bold text-white">B.E. Mechanical Engineering</h4>
+                  <p className="font-mono text-xs text-zinc-400">Sengunthar Engineering College • Namakkal</p>
+                  <div className="p-3 rounded-2xl bg-violet-950/40 border border-violet-500/40 font-mono text-xs font-bold text-violet-300 flex items-center justify-between">
+                    <span>Final Cumulative Grade:</span>
+                    <span className="text-amber-300 font-display text-sm">9.10 CGPA (Distinction)</span>
+                  </div>
+                  <p className="font-sans text-xs text-zinc-400">
+                    Analytical problem decomposition, finite element mathematical thinking, and first-principles mental models applied to software systems.
+                  </p>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Stage 5: Terminal Hub */}
+          {/* Chapter 06: Direct Transmission */}
           {activeStage === 5 && (
             <div className="w-full max-w-3xl space-y-6 text-center animate-in fade-in zoom-in-95 duration-300">
-              <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block">
-                Stage 06 // Direct Transmission
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
-                Initiate{" "}
-                <span className="text-gradient-aurora">Consultation</span>
-              </h2>
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 font-mono text-sm space-y-3 max-w-lg mx-auto text-left">
-                <div>
-                  Email:{" "}
-                  <a
-                    href="mailto:pnaveenkumar.prasanna@gmail.com"
-                    className="text-cyan-400 hover:underline"
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 mb-2">
+                  <Terminal className="w-3.5 h-3.5" />
+                  <span>Chapter 06 // Direct Transmission</span>
+                </div>
+                <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white">
+                  Initiate <span className="text-gradient-aurora">Consultation</span>
+                </h2>
+                <p className="font-sans text-sm text-zinc-400 max-w-md mx-auto mt-2">
+                  Available for software architecture, full-stack web initiatives, and structured AI prompt engineering engagements.
+                </p>
+              </div>
+
+              <div className="p-6 sm:p-8 rounded-3xl bg-white/5 border border-white/10 font-mono text-xs sm:text-sm space-y-4 max-w-lg mx-auto text-left">
+                <div className="flex items-center justify-between gap-3 p-3 rounded-2xl bg-white/5 border border-white/5">
+                  <div className="flex items-center gap-2.5 truncate">
+                    <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span className="text-zinc-200 truncate">{PERSONAL_INFO.email}</span>
+                  </div>
+                  <button
+                    onClick={copyEmail}
+                    className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-zinc-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                    title="Copy Email"
                   >
-                    pnaveenkumar.prasanna@gmail.com
-                  </a>
+                    {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  </button>
                 </div>
-                <div>
-                  Phone:{" "}
+
+                <a
+                  href={`tel:${PERSONAL_INFO.phone}`}
+                  className="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/40 transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-zinc-200">{PERSONAL_INFO.phone}</span>
+                  </div>
+                  <span className="text-[11px] text-emerald-400 font-bold">Call / WhatsApp</span>
+                </a>
+
+                <div className="grid grid-cols-2 gap-3 pt-2">
                   <a
-                    href="tel:+918220349415"
-                    className="text-emerald-400 hover:underline"
-                  >
-                    +91 8220349415
-                  </a>
-                </div>
-                <div>
-                  Location:{" "}
-                  <span className="text-white">Chennai, Tamil Nadu, India</span>
-                </div>
-                <div>
-                  LinkedIn:{" "}
-                  <a
-                    href="https://linkedin.com/in/naveenkumar-prasanna"
+                    href={PERSONAL_INFO.linkedin}
                     target="_blank"
-                    rel="noreferrer"
-                    className="text-blue-400 hover:underline"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-300 hover:bg-blue-500/20 transition-colors"
                   >
-                    linkedin.com/in/naveenkumar-prasanna
+                    <LinkedInIcon className="w-4 h-4" />
+                    <span>LinkedIn</span>
+                  </a>
+
+                  <a
+                    href={PERSONAL_INFO.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-white/10 border border-white/15 text-white hover:bg-white/20 transition-colors"
+                  >
+                    <GitHubIcon className="w-4 h-4 text-white" />
+                    <span>GitHub</span>
                   </a>
                 </div>
               </div>
@@ -412,8 +513,8 @@ export default function InteractiveStageModal({
           )}
         </div>
 
-        {/* Bottom Navigation & Pagination Bar */}
-        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-zinc-900/90 border-t border-white/10 flex items-center justify-between shrink-0">
+        {/* Bottom Navigation & Chapter Progression Bar */}
+        <div className="relative z-10 px-4 sm:px-6 py-3 sm:py-4 bg-zinc-950/90 border-t border-white/10 flex items-center justify-between shrink-0 backdrop-blur-xl">
           <button
             onClick={prevStage}
             className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-xs font-semibold bg-white/5 hover:bg-white/10 text-white transition-all cursor-pointer"
@@ -423,25 +524,26 @@ export default function InteractiveStageModal({
             <span className="sm:hidden">Prev</span>
           </button>
 
-          {/* Progress Indicator */}
+          {/* Chapter Progression Indicators */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {WORKSTATION_STAGES.map((_, i) => (
+            {WORKSTATION_STAGES.map((stg, i) => (
               <button
                 key={i}
                 onClick={() => selectStage(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   activeStage === i
-                    ? "w-6 sm:w-8 bg-cyan-400"
+                    ? "w-7 sm:w-10 bg-cyan-400 shadow-sm shadow-cyan-400/50"
                     : "w-2 bg-white/20 hover:bg-white/40"
                 }`}
-                aria-label={`Jump to stage ${i + 1}`}
+                aria-label={`Jump to ${stg.name}`}
+                title={stg.name}
               />
             ))}
           </div>
 
           <button
             onClick={nextStage}
-            className="flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
           >
             <span className="hidden sm:inline">Next Chapter</span>
             <span className="sm:hidden">Next</span>
@@ -449,6 +551,7 @@ export default function InteractiveStageModal({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

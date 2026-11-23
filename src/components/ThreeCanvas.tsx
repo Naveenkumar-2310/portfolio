@@ -129,12 +129,12 @@ export default function ThreeCanvas() {
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("resize", handleResize);
 
-    // Render Loop
+    // Render Loop using high-performance standard timer (eliminates THREE.Clock deprecation warning)
     let animationFrameId: number;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
       // Smooth interpolation for scroll
       currentScroll += (targetScroll - currentScroll) * 0.08;
@@ -183,7 +183,7 @@ export default function ThreeCanvas() {
     <div
       ref={mountRef}
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden w-screen h-screen"
-      style={{ opacity: 0.38 }}
+      style={{ opacity: 0.45 }}
     />
   );
 }

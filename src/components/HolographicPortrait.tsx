@@ -127,7 +127,7 @@ export default function HolographicPortrait() {
           style={{ animationDuration: "5s", transform: "translateZ(40px)" }}
         >
           <Zap className="w-3.5 h-3.5 text-cyan-400" />
-          <span>React 19 &amp; Next.js 15 (Lead)</span>
+          <span>React 19 &amp; Next.js 16 (Lead)</span>
         </div>
 
         {/* 🛰️ Orbital 2: Top Right - Generative AI Prompt Architect */}

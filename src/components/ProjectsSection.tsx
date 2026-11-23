@@ -98,6 +98,12 @@ export default function ProjectsSection() {
               className={`absolute -top-16 -right-16 w-72 h-72 bg-gradient-to-br ${project.accentColor} opacity-15 rounded-full blur-3xl group-hover:opacity-30 transition-opacity`}
             />
 
+            {/* Dynamic Traveling Border Beam on Hover */}
+            <div className="absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden z-0">
+              <div className="absolute -inset-[100%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#38bdf8_340deg,#818cf8_360deg)] animate-[borderBeamRotate_4s_linear_infinite]" />
+              <div className="absolute inset-[1px] rounded-[inherit] bg-[#0e1018]/95" />
+            </div>
+
             <div>
               {/* Header Info (Elevated in 3D) */}
               <div 

@@ -307,7 +307,7 @@ export default function ContactSection() {
         {/* Right Column: Terminal & Form (7 cols) */}
         <div className="lg:col-span-7 space-y-4 sm:space-y-6">
           {/* Interactive Shell Terminal */}
-          <div className="glass-panel rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+          <div className="glass-panel rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden shadow-2xl cyber-scanline">
             <div className="px-3.5 py-2.5 sm:px-5 sm:py-3 bg-zinc-900/90 border-b border-white/5 flex items-center justify-between text-[11px] sm:text-xs font-mono text-zinc-400">
               <div className="flex items-center gap-2 truncate">
                 <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 shrink-0" />

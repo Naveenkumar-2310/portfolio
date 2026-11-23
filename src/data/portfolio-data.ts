@@ -570,3 +570,22 @@ export const TERMINAL_COMMANDS: Record<string, string> = {
   hire: "Consultancy Line: +91 8220349415. Ready to architect high-impact systems!",
 };
 
+// ==============================================================================
+// UI CONFIGURATION (Central Switchboard for Positions & Layout)
+// ==============================================================================
+export interface UIConfig {
+  /**
+   * Floating Deck Mode button position:
+   * 'left'  -> bottom-left (Recommended for Netlify to avoid 'Powered by Netlify' badge)
+   * 'right' -> bottom-right
+   */
+  deckModeButtonPosition: "left" | "right";
+  soundDefaultEnabled: boolean;
+}
+
+export const UI_CONFIG: UIConfig = {
+  deckModeButtonPosition: "left", // Enter "left" or "right" to change position instantly!
+  soundDefaultEnabled: true,
+};
+
+

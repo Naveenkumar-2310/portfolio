@@ -73,21 +73,21 @@ export default function InteractiveStageModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 sm:p-8 animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-2xl p-2 sm:p-6 md:p-8 animate-in fade-in duration-300">
       {/* Fullscreen Stage Shell */}
-      <div className="relative w-full max-w-[1500px] h-[92vh] glass-panel rounded-3xl sm:rounded-4xl border border-white/15 shadow-2xl overflow-hidden flex flex-col justify-between">
+      <div className="relative w-full max-w-[1500px] h-[95vh] sm:h-[92vh] glass-panel rounded-2xl sm:rounded-4xl border border-white/15 shadow-2xl overflow-hidden flex flex-col justify-between">
         {/* Top Control Bar */}
-        <div className="px-6 py-4 bg-zinc-900/80 border-b border-white/10 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-rose-500/80" />
-              <span className="w-3 h-3 rounded-full bg-amber-500/80" />
-              <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
+        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-zinc-900/80 border-b border-white/10 flex items-center justify-between gap-3 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/80" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80" />
             </div>
-            <span className="font-mono text-xs text-white font-semibold">
-              NAVEEN_KUMAR_P // WORKSTATION_STAGE.v2
+            <span className="font-mono text-[11px] sm:text-xs text-white font-semibold truncate">
+              NAVEEN_KUMAR_P // WORKSTATION_STAGE
             </span>
-            <span className="hidden md:inline font-mono text-[11px] text-cyan-400 px-2.5 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-500/30">
+            <span className="hidden md:inline font-mono text-[11px] text-cyan-400 px-2.5 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-500/30 shrink-0">
               Interactive Deck Mode
             </span>
           </div>
@@ -110,16 +110,16 @@ export default function InteractiveStageModal({
           </div>
 
           {/* Close Action */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <span className="hidden sm:inline font-mono text-[10px] text-zinc-400">
-              [ESC or close to return to Flow Scroll]
+              [ESC or close]
             </span>
             <button
               onClick={() => {
                 sound.click();
                 onClose();
               }}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
               aria-label="Exit Stage Mode"
             >
               <X className="w-5 h-5" />
@@ -128,7 +128,7 @@ export default function InteractiveStageModal({
         </div>
 
         {/* Center Dynamic Stage Canvas */}
-        <div className="flex-1 overflow-y-auto p-6 sm:p-10 flex items-center justify-center">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 md:p-10 flex items-center justify-center">
           {/* Stage 0: Executive Overview */}
           {activeStage === 0 && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full max-w-6xl animate-in fade-in zoom-in-95 duration-300">
@@ -413,24 +413,25 @@ export default function InteractiveStageModal({
         </div>
 
         {/* Bottom Navigation & Pagination Bar */}
-        <div className="px-6 py-4 bg-zinc-900/90 border-t border-white/10 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-zinc-900/90 border-t border-white/10 flex items-center justify-between shrink-0">
           <button
             onClick={prevStage}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs font-semibold bg-white/5 hover:bg-white/10 text-white transition-all"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-xs font-semibold bg-white/5 hover:bg-white/10 text-white transition-all cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4" />
-            <span>Previous Chapter</span>
+            <span className="hidden sm:inline">Previous Chapter</span>
+            <span className="sm:hidden">Prev</span>
           </button>
 
           {/* Progress Indicator */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {WORKSTATION_STAGES.map((_, i) => (
               <button
                 key={i}
                 onClick={() => selectStage(i)}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   activeStage === i
-                    ? "w-8 bg-cyan-400"
+                    ? "w-6 sm:w-8 bg-cyan-400"
                     : "w-2 bg-white/20 hover:bg-white/40"
                 }`}
                 aria-label={`Jump to stage ${i + 1}`}
@@ -440,9 +441,10 @@ export default function InteractiveStageModal({
 
           <button
             onClick={nextStage}
-            className="flex items-center gap-2 px-5 py-2 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/20 transition-all"
+            className="flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
           >
-            <span>Next Chapter</span>
+            <span className="hidden sm:inline">Next Chapter</span>
+            <span className="sm:hidden">Next</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>

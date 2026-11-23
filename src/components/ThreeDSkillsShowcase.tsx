@@ -60,7 +60,7 @@ export default function ThreeDSkillsShowcase() {
               style={{
                 transform: isActive ? "translateZ(25px) scale(1.05)" : "translateZ(0px)",
               }}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl font-mono text-xs font-semibold transition-all duration-300 border [transform-style:preserve-3d] ${
+              className={`flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-5 py-2 sm:py-3 rounded-2xl font-mono text-xs font-semibold transition-all duration-300 border [transform-style:preserve-3d] ${
                 isActive
                   ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-cyan-400 shadow-xl shadow-cyan-500/30"
                   : "glass-panel text-zinc-400 hover:text-white hover:border-white/20 hover:bg-white/5"

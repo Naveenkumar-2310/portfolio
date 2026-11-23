@@ -220,7 +220,7 @@ export default function ContactSection() {
           </div>
 
           {/* Location & LinkedIn Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
             <div className="glass-panel p-5 rounded-3xl border border-white/10 flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-2xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 shrink-0">
                 <MapPin className="w-5 h-5" />

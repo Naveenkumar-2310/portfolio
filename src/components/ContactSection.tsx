@@ -139,7 +139,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative py-28 px-4 sm:px-8 md:px-14 lg:px-20 w-full max-w-[1700px] mx-auto z-10"
+      className="relative py-16 sm:py-28 px-4 sm:px-8 md:px-14 lg:px-20 w-full max-w-[1700px] mx-auto z-10"
     >
       <SectionHeader
         badge={{
@@ -154,22 +154,22 @@ export default function ContactSection() {
         description="Available for software consultancy, full-stack architectural design, and generative AI prompt engineering initiatives."
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Left Column: Direct Info Cards (5 cols) */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-3.5 sm:space-y-4">
           {/* Email Card */}
-          <div className="glass-panel p-6 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
-                <Mail className="w-6 h-6" />
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div className="overflow-hidden">
-                <p className="font-mono text-xs text-zinc-400 uppercase tracking-wider">
+              <div className="overflow-hidden min-w-0 flex-1">
+                <p className="font-mono text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider truncate">
                   Direct Email
                 </p>
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="font-mono text-sm sm:text-base font-semibold text-white hover:text-cyan-300 transition-colors truncate block"
+                  className="font-mono text-xs sm:text-base font-semibold text-white hover:text-cyan-300 transition-colors truncate block"
                 >
                   {PERSONAL_INFO.email}
                 </a>
@@ -177,30 +177,30 @@ export default function ContactSection() {
             </div>
             <button
               onClick={() => copyToClipboard(PERSONAL_INFO.email, "email")}
-              className="p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
+              className="p-2.5 sm:p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
               title="Copy Email Address"
             >
               {copiedEmail ? (
-                <Check className="w-5 h-5 text-emerald-400" />
+                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
               ) : (
-                <Copy className="w-5 h-5" />
+                <Copy className="w-4 h-4 sm:w-5 sm:h-5" />
               )}
             </button>
           </div>
 
           {/* Phone Card */}
-          <div className="glass-panel p-6 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-                <Phone className="w-6 h-6" />
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                <Phone className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <p className="font-mono text-xs text-zinc-400 uppercase tracking-wider">
+              <div className="overflow-hidden min-w-0 flex-1">
+                <p className="font-mono text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider truncate">
                   Call / WhatsApp
                 </p>
                 <a
                   href={`tel:${PERSONAL_INFO.phone}`}
-                  className="font-mono text-sm sm:text-base font-semibold text-white hover:text-emerald-300 transition-colors"
+                  className="font-mono text-xs sm:text-base font-semibold text-white hover:text-emerald-300 transition-colors truncate block"
                 >
                   {PERSONAL_INFO.phone}
                 </a>
@@ -208,28 +208,28 @@ export default function ContactSection() {
             </div>
             <button
               onClick={() => copyToClipboard(PERSONAL_INFO.phone, "phone")}
-              className="p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
+              className="p-2.5 sm:p-3 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors shrink-0"
               title="Copy Phone Number"
             >
               {copiedPhone ? (
-                <Check className="w-5 h-5 text-emerald-400" />
+                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
               ) : (
-                <Copy className="w-5 h-5" />
+                <Copy className="w-4 h-4 sm:w-5 sm:h-5" />
               )}
             </button>
           </div>
 
           {/* Location & LinkedIn Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-            <div className="glass-panel p-5 rounded-3xl border border-white/10 flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-2xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 shrink-0">
-                <MapPin className="w-5 h-5" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div className="glass-panel p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-white/10 flex items-center gap-3 sm:gap-3.5">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 shrink-0">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <p className="font-mono text-[11px] text-zinc-400 uppercase">
+                <p className="font-mono text-[10px] sm:text-[11px] text-zinc-400 uppercase">
                   Location
                 </p>
-                <p className="font-sans text-sm font-semibold text-white">
+                <p className="font-sans text-xs sm:text-sm font-semibold text-white">
                   Chennai, TN
                 </p>
               </div>
@@ -239,16 +239,16 @@ export default function ContactSection() {
               href={PERSONAL_INFO.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-panel p-5 rounded-3xl border border-white/10 hover:border-blue-500/40 transition-all flex items-center gap-3.5 group"
+              className="glass-panel p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-white/10 hover:border-blue-500/40 transition-all flex items-center gap-3 sm:gap-3.5 group"
             >
-              <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
-                <LinkedInIcon className="w-5 h-5" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
+                <LinkedInIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div className="overflow-hidden">
-                <p className="font-mono text-[11px] text-zinc-400 uppercase">
+              <div className="overflow-hidden min-w-0">
+                <p className="font-mono text-[10px] sm:text-[11px] text-zinc-400 uppercase">
                   LinkedIn
                 </p>
-                <p className="font-sans text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors flex items-center gap-1">
+                <p className="font-sans text-xs sm:text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors flex items-center gap-1">
                   Connect <ExternalLink className="w-3.5 h-3.5" />
                 </p>
               </div>
@@ -260,34 +260,34 @@ export default function ContactSection() {
             href={PERSONAL_INFO.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-panel p-5 rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all flex items-center justify-between group"
+            className="glass-panel p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-white/10 hover:border-cyan-500/40 transition-all flex items-center justify-between gap-3 group"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform">
-                <GitHubIcon className="w-6 h-6 text-white" />
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform">
+                <GitHubIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="overflow-hidden">
-                <p className="font-mono text-xs text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+              <div className="overflow-hidden min-w-0 flex-1">
+                <p className="font-mono text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider flex flex-wrap items-center gap-1.5 sm:gap-2">
                   <span>GitHub Profile</span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">100% Solo Project</span>
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">100% Solo Project</span>
                 </p>
-                <p className="font-mono text-sm sm:text-base font-semibold text-white group-hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+                <p className="font-mono text-xs sm:text-base font-semibold text-white group-hover:text-cyan-300 transition-colors flex items-center gap-1.5 truncate">
                   github.com/Naveenkumar-2310
                 </p>
               </div>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 group-hover:bg-cyan-500/20 text-zinc-400 group-hover:text-cyan-300 transition-colors shrink-0">
-              <ExternalLink className="w-5 h-5" />
+            <div className="p-2.5 sm:p-3 rounded-xl bg-white/5 group-hover:bg-cyan-500/20 text-zinc-400 group-hover:text-cyan-300 transition-colors shrink-0">
+              <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
           </a>
 
           {/* Download Resume Card */}
-          <div className="glass-panel p-6 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/30 to-transparent flex items-center justify-between">
-            <div>
-              <h4 className="font-display text-base font-bold text-white">
+          <div className="glass-panel p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/30 to-transparent flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+            <div className="min-w-0">
+              <h4 className="font-display text-sm sm:text-base font-bold text-white leading-tight">
                 Download Verified Resume
               </h4>
-              <p className="font-mono text-xs text-zinc-400 mt-0.5">
+              <p className="font-mono text-[11px] sm:text-xs text-zinc-400 mt-0.5">
                 Comprehensive PDF with project details
               </p>
             </div>
@@ -296,7 +296,7 @@ export default function ContactSection() {
               download="Naveen_Kumar_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-full font-mono text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-white flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25"
+              className="w-full sm:w-auto justify-center px-4 sm:px-5 py-2.5 rounded-full font-mono text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-white flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 shrink-0"
             >
               <Download className="w-4 h-4" />
               <span>Get PDF</span>
@@ -305,27 +305,27 @@ export default function ContactSection() {
         </div>
 
         {/* Right Column: Terminal & Form (7 cols) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="lg:col-span-7 space-y-4 sm:space-y-6">
           {/* Interactive Shell Terminal */}
-          <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
-            <div className="px-5 py-3 bg-zinc-900/90 border-b border-white/5 flex items-center justify-between text-xs font-mono text-zinc-400">
-              <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-cyan-400" />
-                <span>naveen-kumar@thinking-shell:~</span>
+          <div className="glass-panel rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+            <div className="px-3.5 py-2.5 sm:px-5 sm:py-3 bg-zinc-900/90 border-b border-white/5 flex items-center justify-between text-[11px] sm:text-xs font-mono text-zinc-400">
+              <div className="flex items-center gap-2 truncate">
+                <Terminal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 shrink-0" />
+                <span className="truncate">naveen-kumar@thinking-shell:~</span>
               </div>
-              <span className="text-[11px] text-zinc-500">
-                type &apos;help&apos; or &apos;thinking&apos;
+              <span className="text-[10px] sm:text-[11px] text-zinc-500 shrink-0 ml-2">
+                type &apos;help&apos;
               </span>
             </div>
 
-            <div className="p-5 font-mono text-xs max-h-48 overflow-y-auto space-y-2.5 bg-black/70">
+            <div className="p-3.5 sm:p-5 font-mono text-[11px] sm:text-xs max-h-48 overflow-y-auto space-y-2.5 bg-black/70">
               {terminalHistory.map((item, idx) => (
                 <div key={idx} className="space-y-1">
                   <div className="flex items-center gap-2 text-cyan-400">
                     <span className="text-zinc-500">&gt;</span>
                     <span>{item.cmd}</span>
                   </div>
-                  <div className="text-zinc-300 pl-3.5 border-l border-zinc-800 leading-relaxed">
+                  <div className="text-zinc-300 pl-3.5 border-l border-zinc-800 leading-relaxed break-words">
                     {item.res}
                   </div>
                 </div>
@@ -334,9 +334,9 @@ export default function ContactSection() {
 
             <form
               onSubmit={handleTerminalSubmit}
-              className="p-3 bg-zinc-900/70 border-t border-white/5 flex gap-2"
+              className="p-2.5 sm:p-3 bg-zinc-900/70 border-t border-white/5 flex gap-2"
             >
-              <span className="text-xs font-mono text-cyan-400 pl-2 self-center">
+              <span className="text-xs font-mono text-cyan-400 pl-1.5 self-center">
                 &gt;
               </span>
               <input
@@ -344,11 +344,11 @@ export default function ContactSection() {
                 value={terminalInput}
                 onChange={(e) => setTerminalInput(e.target.value)}
                 placeholder="type command ('thinking', 'skills', 'projects', 'hire')..."
-                className="w-full bg-transparent text-xs font-mono text-white placeholder-zinc-600 focus:outline-none"
+                className="w-full bg-transparent text-[11px] sm:text-xs font-mono text-white placeholder-zinc-600 focus:outline-none"
               />
               <button
                 type="submit"
-                className="text-xs font-mono px-3.5 py-1.5 rounded-lg bg-white/10 text-zinc-300 hover:text-white transition-colors"
+                className="text-[11px] sm:text-xs font-mono px-3 sm:px-3.5 py-1.5 rounded-lg bg-white/10 text-zinc-300 hover:text-white transition-colors shrink-0"
               >
                 exec
               </button>
@@ -356,31 +356,31 @@ export default function ContactSection() {
           </div>
 
           {/* Direct Inquiry Form with Anti-Bot Protection */}
-          <div className="glass-panel p-7 sm:p-8 rounded-3xl border border-white/10 relative overflow-hidden">
+          <div className="glass-panel p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-white/10 relative overflow-hidden">
             {successInfo ? (
-              <div className="py-8 px-4 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto text-emerald-400 shadow-xl shadow-emerald-500/20">
-                  <Check className="w-8 h-8" />
+              <div className="py-6 sm:py-8 px-2 sm:px-4 text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto text-emerald-400 shadow-xl shadow-emerald-500/20">
+                  <Check className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
                 <div className="space-y-2">
-                  <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 font-bold block">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-emerald-400 font-bold block">
                     ✓ Transmitted Successfully
                   </span>
-                  <h3 className="font-display text-2xl font-bold text-white">
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
                     Message Sent to Naveen Kumar P!
                   </h3>
-                  <p className="font-sans text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
+                  <p className="font-sans text-xs sm:text-sm text-zinc-300 max-w-md mx-auto leading-relaxed">
                     Thank you, <strong className="text-white">{successInfo.name}</strong>. Your consultation query has been logged and forwarded to <strong className="text-cyan-400">pnaveenkumar.prasanna@gmail.com</strong>.
                   </p>
-                  <p className="font-mono text-xs text-zinc-400">
+                  <p className="font-mono text-[11px] sm:text-xs text-zinc-400">
                     I will review your inquiry and reach back to <span className="text-emerald-300">{successInfo.email}</span> within 24 hours.
                   </p>
                 </div>
 
-                <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+                <div className="pt-3 sm:pt-4 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
                   <button
                     onClick={() => setSuccessInfo(null)}
-                    className="px-6 py-2.5 rounded-full font-mono text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                    className="px-5 sm:px-6 py-2.5 rounded-full font-mono text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
                   >
                     Send Another Message
                   </button>
@@ -388,7 +388,7 @@ export default function ContactSection() {
                     href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PERSONAL_INFO.email)}&su=${encodeURIComponent("Consultation Inquiry - Naveen Kumar P")}&body=${encodeURIComponent("Hi Naveen,\n\nI would like to discuss an engineering consultation project:")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-2.5 rounded-full font-mono text-xs font-semibold bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/30 transition-colors flex items-center gap-1.5"
+                    className="px-5 sm:px-6 py-2.5 rounded-full font-mono text-xs font-semibold bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/30 transition-colors flex items-center gap-1.5"
                   >
                     <span>Open in Gmail (Web)</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -396,7 +396,7 @@ export default function ContactSection() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSendMessage} className="space-y-5">
+              <form onSubmit={handleSendMessage} className="space-y-4 sm:space-y-5">
                 {/* Anti-Bot Honeypot: Real humans never see or fill this. Bots blindly fill all inputs. */}
                 <div
                   style={{
@@ -431,9 +431,9 @@ export default function ContactSection() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div>
-                    <label className="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">
+                    <label className="block font-mono text-[11px] sm:text-xs uppercase tracking-wider text-zinc-400 mb-1.5 sm:mb-2">
                       Your Name <span className="text-cyan-400">*</span>
                     </label>
                     <input
@@ -444,11 +444,11 @@ export default function ContactSection() {
                         setFormData({ ...formData, name: e.target.value })
                       }
                       placeholder="e.g. Elena Rostova"
-                      className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-xs sm:text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">
+                    <label className="block font-mono text-[11px] sm:text-xs uppercase tracking-wider text-zinc-400 mb-1.5 sm:mb-2">
                       Your Email <span className="text-cyan-400">*</span>
                     </label>
                     <input
@@ -459,13 +459,13 @@ export default function ContactSection() {
                         setFormData({ ...formData, email: e.target.value })
                       }
                       placeholder="elena@enterprise.com"
-                      className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-xs sm:text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">
+                  <label className="block font-mono text-[11px] sm:text-xs uppercase tracking-wider text-zinc-400 mb-1.5 sm:mb-2">
                     Phone / WhatsApp (Optional)
                   </label>
                   <input
@@ -475,12 +475,12 @@ export default function ContactSection() {
                       setFormData({ ...formData, phone: e.target.value })
                     }
                     placeholder="+91 / International number"
-                    className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-xs sm:text-sm focus:outline-none focus:border-cyan-400 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2">
+                  <label className="block font-mono text-[11px] sm:text-xs uppercase tracking-wider text-zinc-400 mb-1.5 sm:mb-2">
                     Project Scope / Technical Consultation Needs <span className="text-cyan-400">*</span>
                   </label>
                   <textarea
@@ -491,7 +491,7 @@ export default function ContactSection() {
                       setFormData({ ...formData, message: e.target.value })
                     }
                     placeholder="Describe your engineering project, timeline, or consultation objectives..."
-                    className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-sm focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 font-sans text-xs sm:text-sm focus:outline-none focus:border-cyan-400 transition-colors resize-none"
                   ></textarea>
                 </div>
 
@@ -499,7 +499,7 @@ export default function ContactSection() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-2xl font-mono font-semibold text-sm bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2.5 transition-all duration-300 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                    className="w-full py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-mono font-semibold text-xs sm:text-sm bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2.5 transition-all duration-300 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <>
@@ -517,15 +517,15 @@ export default function ContactSection() {
 
                 {/* Direct Email Options (Eliminates unwanted Outlook launches) */}
                 <div className="pt-3 border-t border-white/5 space-y-2 text-center">
-                  <p className="font-mono text-[11px] text-zinc-400">
+                  <p className="font-mono text-[10px] sm:text-[11px] text-zinc-400">
                     Prefer direct email without opening Outlook?
                   </p>
-                  <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-xs">
+                  <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 font-mono text-[11px] sm:text-xs">
                     <a
                       href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PERSONAL_INFO.email)}&su=${encodeURIComponent("Consultation Inquiry - Naveen Kumar P")}&body=${encodeURIComponent("Hi Naveen,\n\nI would like to discuss an engineering consultation project:\n")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 rounded-full bg-cyan-950/40 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 transition-colors flex items-center gap-1.5"
+                      className="px-2.5 sm:px-3 py-1.5 rounded-full bg-cyan-950/40 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 transition-colors flex items-center gap-1.5"
                       title="Compose in Gmail Web in your browser (No Outlook application required)"
                     >
                       <span>Compose in Gmail (Browser)</span>
@@ -535,7 +535,7 @@ export default function ContactSection() {
                     <button
                       type="button"
                       onClick={() => copyToClipboard(PERSONAL_INFO.email, "email")}
-                      className="px-3 py-1.5 rounded-full bg-white/5 text-zinc-300 border border-white/10 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1.5 cursor-pointer"
+                      className="px-2.5 sm:px-3 py-1.5 rounded-full bg-white/5 text-zinc-300 border border-white/10 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1.5 cursor-pointer"
                       title="Copy email address to clipboard"
                     >
                       {copiedEmail ? (
@@ -553,7 +553,7 @@ export default function ContactSection() {
 
                     <a
                       href={`mailto:${PERSONAL_INFO.email}?subject=Consultation%20Inquiry&body=Hi%20Naveen,`}
-                      className="px-3 py-1.5 rounded-full bg-white/5 text-zinc-400 border border-white/5 hover:text-zinc-200 hover:bg-white/10 transition-colors text-[11px]"
+                      className="px-2.5 sm:px-3 py-1.5 rounded-full bg-white/5 text-zinc-400 border border-white/5 hover:text-zinc-200 hover:bg-white/10 transition-colors text-[10px] sm:text-[11px]"
                       title="Open Microsoft Outlook desktop application"
                     >
                       <span>Outlook</span>

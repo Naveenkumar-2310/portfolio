@@ -5,9 +5,9 @@
 
 export const stageModalStyles = {
   backdrop:
-    "fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-3xl p-2 sm:p-5 md:p-8 animate-in fade-in duration-300 select-none",
+    "fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-3xl p-0 sm:p-4 md:p-6 animate-in fade-in duration-300 select-none",
   shell:
-    "relative w-full max-w-[1550px] h-[96vh] sm:h-[92vh] bg-[#090b12]/95 rounded-2xl sm:rounded-4xl border border-cyan-500/30 shadow-[0_0_80px_rgba(56,189,248,0.25)] overflow-hidden flex flex-col justify-between",
+    "relative w-full max-w-[1550px] h-[100dvh] sm:h-[92vh] bg-[#090b12]/95 rounded-none sm:rounded-3xl md:rounded-4xl border-0 sm:border border-cyan-500/30 shadow-[0_0_80px_rgba(56,189,248,0.25)] overflow-hidden flex flex-col justify-between",
   ambientGlowCyan:
     "absolute -top-32 -left-32 w-96 h-96 bg-cyan-600/15 rounded-full blur-3xl pointer-events-none",
   ambientGlowViolet:
@@ -16,9 +16,11 @@ export const stageModalStyles = {
     "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none",
   gridOverlay: "absolute inset-0 bg-neural-grid opacity-25 pointer-events-none",
   header:
-    "relative z-10 px-3 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-950/90 border-b border-white/10 flex items-center justify-between gap-2 sm:gap-4 flex-nowrap shrink-0 overflow-x-auto no-scrollbar backdrop-blur-xl",
+    "relative z-20 px-3.5 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-950/95 border-b border-white/10 flex items-center justify-between gap-2 sm:gap-4 shrink-0 backdrop-blur-xl",
   headerTabStrip:
-    "flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/5 font-mono text-xs overflow-x-auto no-scrollbar shrink-0 max-w-[50vw] sm:max-w-none",
+    "hidden md:flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/5 font-mono text-xs shrink-0",
+  mobileTabStrip:
+    "md:hidden relative z-10 w-full px-2.5 py-2 bg-zinc-950/95 border-b border-white/10 flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth shrink-0 touch-pan-x",
   tabButtonBase:
     "flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer",
   tabButtonActive: (color: string) =>
@@ -27,18 +29,18 @@ export const stageModalStyles = {
   closeButton:
     "p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-rose-500/20 text-zinc-300 hover:text-rose-300 hover:border-rose-500/30 border border-transparent transition-colors cursor-pointer shrink-0",
   contentContainer:
-    "relative z-10 flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 min-h-0 flex flex-col",
+    "relative z-10 flex-1 overflow-y-auto px-3 sm:px-6 md:px-8 py-3 sm:py-6 min-h-0 flex flex-col no-scrollbar",
   contentWrapper: "w-full max-w-5xl mx-auto my-auto py-2 sm:py-4",
   footer:
-    "relative z-10 px-4 sm:px-6 py-3 sm:py-4 bg-zinc-950/90 border-t border-white/10 flex items-center justify-between shrink-0 backdrop-blur-xl",
+    "relative z-20 px-3 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-950/95 border-t border-white/10 flex items-center justify-between shrink-0 backdrop-blur-xl",
   navButtonPrev:
-    "flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl font-mono text-xs font-semibold bg-white/5 hover:bg-white/10 text-white transition-all cursor-pointer",
+    "flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl font-mono text-xs font-semibold bg-white/5 hover:bg-white/10 text-white transition-all cursor-pointer shrink-0",
   navButtonNext:
-    "flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/25 transition-all cursor-pointer",
+    "flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl font-mono text-xs font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white shadow-lg shadow-cyan-500/25 transition-all cursor-pointer shrink-0",
   progressDotBase:
-    "h-2 rounded-full transition-all duration-300 cursor-pointer",
-  progressDotActive: "w-7 sm:w-10 bg-cyan-400 shadow-sm shadow-cyan-400/50",
-  progressDotInactive: "w-2 bg-white/20 hover:bg-white/40",
+    "h-1.5 sm:h-2 rounded-full transition-all duration-300 cursor-pointer",
+  progressDotActive: "w-5 sm:w-10 bg-cyan-400 shadow-sm shadow-cyan-400/50",
+  progressDotInactive: "w-1.5 sm:w-2 bg-white/20 hover:bg-white/40",
   chapterBadge: (colorClasses: string) =>
     `inline-flex items-center gap-2 px-3.5 py-1 rounded-full font-mono text-xs font-semibold ${colorClasses}`,
 };

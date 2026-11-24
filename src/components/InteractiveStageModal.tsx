@@ -112,9 +112,9 @@ export default function InteractiveStageModal({
           {/* Left Brand Lockup (Short & Sweet) */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="flex items-center gap-1.5 shrink-0">
-              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/40" />
-              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/40" />
-              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/40" />
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/40" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/40" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/40" />
             </div>
             <TypewriterName
               as="span"
@@ -128,7 +128,7 @@ export default function InteractiveStageModal({
             </span>
           </div>
 
-          {/* Center Stage Quick Jumper Tabs */}
+          {/* Desktop Center Stage Quick Jumper Tabs (Cleanly Centered on md+) */}
           <div className={stageModalStyles.headerTabStrip}>
             {WORKSTATION_STAGES.map((stg, i) => {
               const Icon = stg.icon;
@@ -155,8 +155,11 @@ export default function InteractiveStageModal({
             })}
           </div>
 
-          {/* Right Action & Keyboard Shortcuts */}
+          {/* Right Action: Stage Counter & Pinned Close Button */}
           <div className="flex items-center gap-2 shrink-0">
+            <span className="md:hidden font-mono text-[10px] font-bold text-cyan-300 px-2 py-1 rounded-lg bg-cyan-950/70 border border-cyan-500/40 shadow-sm">
+              0{activeStage + 1} / 0{WORKSTATION_STAGES.length}
+            </span>
             <span className="hidden xl:inline font-mono text-[10px] text-zinc-400 px-2 py-1 rounded bg-white/5 border border-white/5 whitespace-nowrap">
               ESC Exit
             </span>
@@ -172,6 +175,35 @@ export default function InteractiveStageModal({
               <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
+        </div>
+
+        {/* Dedicated Mobile Deck Stage Switcher Strip (Sub-Header Menu) */}
+        <div className={stageModalStyles.mobileTabStrip}>
+          {WORKSTATION_STAGES.map((stg, i) => {
+            const Icon = stg.icon;
+            const isActive = activeStage === i;
+            return (
+              <button
+                key={stg.id}
+                onClick={() => selectStage(i)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-xs font-semibold whitespace-nowrap transition-all shrink-0 cursor-pointer ${
+                  isActive
+                    ? `bg-gradient-to-r ${stg.activeColor} text-white shadow-md shadow-cyan-500/30 border border-white/20 scale-[1.02]`
+                    : "bg-white/5 border border-white/5 text-zinc-400 hover:text-white"
+                }`}
+                title={stg.name}
+              >
+                <Icon
+                  className={`w-3.5 h-3.5 ${
+                    isActive ? "text-white" : "text-zinc-400"
+                  }`}
+                />
+                <span>
+                  {stg.number}. {stg.name}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Center Dynamic Stage Canvas: Vividly Themed & Resilient Scroll Flow */}

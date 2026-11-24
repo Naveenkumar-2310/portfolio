@@ -48,3 +48,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - **GitHub Repository**: `https://github.com/Naveenkumar-2310/portfolio` (branch `main`).
 - **Live Netlify URL**: `https://pnaveenkumar-portfolio.netlify.app`.
 - **Verification Rule**: Any code modification must be verified with `npx eslint src` (0 errors, 0 warnings) and `yarn build` (0 errors).
+
+## 7. Clean Code & Modular Style Architecture
+- **Separation of Component Styles**:
+  - Keep styling tokens and long Tailwind class groups organized in dedicated files under `src/styles/<component-name>.styles.ts` (e.g., `interactive-stage.styles.ts`, `projects.styles.ts`, `contact.styles.ts`, `footer.styles.ts`), exported via `src/styles/index.ts`.
+  - Maintain component JSX clean, legible, and focused on layout and reactivity rather than cluttered inline Tailwind strings.
+- **Card & Component Reusability (Anti-Copy-Paste Rule)**:
+  - When multiple cards share the same structural wireframe and only differ by `title`, `subtitle`, `badge`, `icon`, or `color theme` (e.g., in `InteractiveStageModal.tsx` or feature sections), **DO NOT copy-paste repetitive card markup**.
+  - Always extract reusable components into dedicated modules (e.g., `src/components/deck/StageStatCard.tsx`, `StageThinkingCard.tsx`, `StageProjectCard.tsx`, `StageJourneyCard.tsx`).
+  - Map over strongly-typed configuration/data arrays instead of hardcoding repetitive DOM blocks.
+- **Data-Driven Orchestration**:
+  - Keep parent components and modal orchestrators lean by delegating specialized rendering to subcomponents with typed theme variants.

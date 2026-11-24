@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { PERSONAL_INFO } from "@/data/portfolio-data";
 import { sound } from "@/lib/sound";
+import { navbarStyles } from "@/styles/navbar.styles";
 
 interface NavbarProps {
   onOpenStageMode?: () => void;
@@ -115,14 +116,14 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full px-4 sm:px-8 md:px-12 lg:px-16 pt-4 md:pt-6 pointer-events-none">
-        <div className="w-full max-w-[1700px] mx-auto flex items-center justify-between">
+      <header className={navbarStyles.header}>
+        <div className={navbarStyles.container}>
           {/* Brand Monogram & Status */}
           <button
             onClick={() => scrollTo("#hero")}
-            className="pointer-events-auto flex items-center gap-3 group cursor-pointer text-left glass-panel px-4 py-2 rounded-full border border-white/10 hover:border-cyan-400/40 transition-all"
+            className={navbarStyles.brandButton}
           >
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400/40 group-hover:scale-105 transition-transform">
+            <div className={navbarStyles.brandMonogram}>
               <span className="font-display text-xs font-bold text-white tracking-wider">NK</span>
               <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -140,7 +141,7 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
           </button>
 
           {/* Desktop Nav Pills */}
-          <nav className="pointer-events-auto hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full glass-panel border border-white/10 shadow-2xl backdrop-blur-2xl">
+          <nav className={navbarStyles.desktopNav}>
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.id;
               const Icon = link.icon;

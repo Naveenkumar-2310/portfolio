@@ -12,6 +12,7 @@ import { PERSONAL_INFO, HERO_MARQUEE_ITEMS } from "@/data/portfolio-data";
 import HolographicPortrait from "@/components/HolographicPortrait";
 import { sound } from "@/lib/sound";
 import { TypewriterName } from "@/components/deck";
+import { heroStyles } from "@/styles/hero.styles";
 
 export default function HeroSection({
   onOpenStageMode,
@@ -27,13 +28,13 @@ export default function HeroSection({
   return (
     <section
       id="hero"
-      className="relative min-h-[96vh] flex flex-col justify-between pt-32 pb-8 overflow-hidden z-10 w-full perspective-[1200px]"
+      className={heroStyles.section}
     >
       {/* Main Full-Width Hero Container */}
-      <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-8 md:px-14 lg:px-20 flex-1 flex flex-col justify-center">
+      <div className={heroStyles.container}>
         {/* Top Status Indicators (Prioritizing Skills & Architecture) */}
-        <div className="flex flex-wrap items-center gap-3 mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-cyan-500/30 shadow-lg shadow-cyan-500/10">
+        <div className={heroStyles.statusRow}>
+          <div className={heroStyles.statusPillConsultant}>
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -43,31 +44,31 @@ export default function HeroSection({
             </span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full glass-panel-subtle text-xs font-mono text-cyan-400 border border-white/10">
+          <div className={heroStyles.statusPillTech}>
             <Zap className="w-3.5 h-3.5 text-cyan-400" />
             <span>React.js • Next.js • Node.js • Prompt Workflows</span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 text-xs font-mono text-zinc-400 border border-white/5">
+          <div className={heroStyles.statusPillLocation}>
             <span>Chennai, TN, India</span>
           </div>
         </div>
 
         {/* Hero Grid: Typography Left (7 Cols), 3D Holographic Portrait Right (5 Cols) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className={heroStyles.grid}>
           {/* Main Huge Typography */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className={heroStyles.leftColumn}>
             {/* Name strictly on a single line on all screen sizes with animated typewriter effect */}
             <TypewriterName
               as="h1"
-              className="font-display text-[clamp(1.85rem,5.2vw,4.75rem)] lg:text-7xl xl:text-8xl font-extrabold tracking-tight text-white whitespace-nowrap leading-none overflow-visible select-none inline-flex items-center"
+              className={heroStyles.nameHeading}
             />
 
-            <p className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-zinc-200 leading-tight">
+            <p className={heroStyles.roleSubtitle}>
               Software Consultant &amp; Full-Stack AI Engineer
             </p>
 
-            <p className="max-w-2xl text-base sm:text-lg text-zinc-400 leading-relaxed font-sans font-normal">
+            <p className={heroStyles.bioParagraph}>
               Hi, I&apos;m{" "}
               <span className="text-white font-semibold">Naveen Kumar P</span>.
               I specialize in engineering high-velocity{" "}
@@ -82,10 +83,10 @@ export default function HeroSection({
             </p>
 
             {/* CTAs */}
-            <div className="pt-4 flex flex-wrap items-center gap-3.5 sm:gap-4">
+            <div className={heroStyles.ctaRow}>
               <button
                 onClick={() => scrollTo("skills-3d")}
-                className="group relative inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-mono text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-2xl shadow-cyan-500/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                className={heroStyles.primaryCta}
               >
                 <Zap className="w-4 h-4 text-cyan-200" />
                 <span>Explore Technical Skills</span>
@@ -94,7 +95,7 @@ export default function HeroSection({
 
               <button
                 onClick={() => scrollTo("projects")}
-                className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-mono text-xs sm:text-sm font-medium text-zinc-200 glass-panel hover:bg-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:scale-[1.02]"
+                className={heroStyles.secondaryCta}
               >
                 <Code2 className="w-4 h-4 text-cyan-400" />
                 <span>Selected Works</span>
@@ -103,7 +104,7 @@ export default function HeroSection({
               {onOpenStageMode && (
                 <button
                   onClick={onOpenStageMode}
-                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full font-mono text-xs sm:text-sm font-medium text-cyan-300 bg-cyan-950/40 border border-cyan-500/30 hover:bg-cyan-500/20 transition-all cursor-pointer"
+                  className={heroStyles.stageModeCta}
                   title="Launch Interactive Workstation Deck Mode"
                 >
                   <Sliders className="w-3.5 h-3.5 text-cyan-400" />
@@ -115,7 +116,7 @@ export default function HeroSection({
                 href={PERSONAL_INFO.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full font-mono text-xs sm:text-sm font-medium text-zinc-300 glass-panel-subtle hover:text-white hover:bg-white/10 transition-all"
+                className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full font-mono text-xs sm:text-sm font-medium text-zinc-300 glass-panel-subtle hover:text-white hover:bg-white/10 transition-all cursor-pointer"
                 title="View GitHub Profile & Repositories"
               >
                 <GitHubIcon className="w-4 h-4 text-white" />

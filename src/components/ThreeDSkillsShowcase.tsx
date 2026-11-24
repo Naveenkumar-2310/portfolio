@@ -11,6 +11,7 @@ import {
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SKILL_CATEGORIES } from "@/data/portfolio-data";
 import { sound } from "@/lib/sound";
+import { skillsShowcaseStyles } from "@/styles/skills.styles";
 
 const CATEGORY_ICONS = [Zap, Cpu, Brain, Database];
 
@@ -31,7 +32,7 @@ export default function ThreeDSkillsShowcase() {
   const currentCategory = SKILL_CATEGORIES[activeCategory] || SKILL_CATEGORIES[0];
 
   return (
-    <section id="skills-3d" className="relative py-28 px-4 sm:px-8 md:px-14 lg:px-20 w-full max-w-[1700px] mx-auto z-10 perspective-[1400px]">
+    <section id="skills-3d" className={skillsShowcaseStyles.section}>
       <SectionHeader
         badge={{
           icon: Zap,
@@ -46,7 +47,7 @@ export default function ThreeDSkillsShowcase() {
       />
 
       {/* 3D Category Switcher Tabs */}
-      <div className="flex flex-wrap gap-3 mb-12 justify-center lg:justify-start">
+      <div className={skillsShowcaseStyles.categoryTabsContainer}>
         {SKILL_CATEGORIES.map((cat, idx) => {
           const Icon = CATEGORY_ICONS[idx] || Zap;
           const isActive = activeCategory === idx;

@@ -34,3 +34,4 @@ export const heroStyles = {
     "p-3.5 rounded-full glass-panel hover:bg-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:scale-105 shrink-0",
   rightColumn: "lg:col-span-5 flex justify-center",
 };
+

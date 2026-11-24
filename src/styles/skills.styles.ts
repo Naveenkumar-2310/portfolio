@@ -17,3 +17,4 @@ export const skillsShowcaseStyles = {
   skillLevelBar:
     "h-1.5 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 transition-all duration-700",
 };
+

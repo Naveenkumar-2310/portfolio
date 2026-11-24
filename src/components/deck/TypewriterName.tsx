@@ -10,24 +10,28 @@ interface TypewriterNameProps {
 }
 
 /**
- * Animated typewriter component for Naveen Kumar P
- * Adheres strictly to AGENTS.md Rule 1 (Single Line, no wrap, whitespace-nowrap)
+ * High-velocity animated typewriter component for Naveen Kumar P
+ * - Starts with letter 'N' on initial render so the screen NEVER appears blank or hanging.
+ * - Fast 30ms typing velocity for instantaneous, responsive keynote impact (<0.4s total).
+ * - Strictly preserves AGENTS.md Rule 1 (Single Line, no wrap, whitespace-nowrap).
  */
 export default function TypewriterName({
   as: Component = "h2",
-  className = "font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap inline-flex items-center",
-  speed = 65,
-  delay = 120,
+  className = "font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap inline-flex items-center select-none",
+  speed = 30,
+  delay = 0,
 }: TypewriterNameProps) {
   const firstName = "Naveen";
   const lastName = "Kumar P";
   const fullLength = firstName.length + 1 + lastName.length; // 6 + 1 + 7 = 14
 
-  const [typedCount, setTypedCount] = useState(0);
+  // Initialized to 1 so the initial frame instantly shows 'N' + caret, eliminating any blank-space delay
+  const [typedCount, setTypedCount] = useState(1);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
-    const timeoutId = setTimeout(() => {
+
+    const startTyping = () => {
       intervalId = setInterval(() => {
         setTypedCount((prev) => {
           if (prev >= fullLength) {
@@ -37,12 +41,20 @@ export default function TypewriterName({
           return prev + 1;
         });
       }, speed);
-    }, delay);
-
-    return () => {
-      clearTimeout(timeoutId);
-      if (intervalId) clearInterval(intervalId);
     };
+
+    if (delay > 0) {
+      const timeoutId = setTimeout(startTyping, delay);
+      return () => {
+        clearTimeout(timeoutId);
+        if (intervalId) clearInterval(intervalId);
+      };
+    } else {
+      startTyping();
+      return () => {
+        if (intervalId) clearInterval(intervalId);
+      };
+    }
   }, [fullLength, speed, delay]);
 
   const displayedFirst =

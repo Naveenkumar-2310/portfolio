@@ -27,3 +27,4 @@ export const navbarStyles = {
   mobileDrawer:
     "fixed inset-0 z-50 bg-black/95 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-8 animate-in fade-in duration-300 select-none",
 };
+

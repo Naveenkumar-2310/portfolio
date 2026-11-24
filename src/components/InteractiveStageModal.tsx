@@ -2,19 +2,8 @@
 
 import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
-import {
-  Sparkles,
-  Zap,
-  Brain,
-  Code2,
-  Cpu,
-  Calendar,
-  Terminal,
-  X,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import { PERSONAL_INFO } from "@/data/portfolio-data";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { PERSONAL_INFO, WORKSTATION_STAGES } from "@/constants";
 import { sound } from "@/lib/sound";
 import { stageModalStyles } from "@/styles/interactive-stage.styles";
 import {
@@ -34,59 +23,6 @@ interface InteractiveStageProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-// Short & Sweet chapter titles with dedicated neon color accents
-const WORKSTATION_STAGES = [
-  {
-    id: "overview",
-    number: "01",
-    name: "Profile",
-    icon: Sparkles,
-    activeColor: "from-cyan-500 to-blue-600",
-  },
-  {
-    id: "skills",
-    number: "02",
-    name: "Skills",
-    icon: Zap,
-    activeColor: "from-amber-400 to-cyan-500",
-  },
-  {
-    id: "thinking",
-    number: "03",
-    name: "Thinking",
-    icon: Brain,
-    activeColor: "from-blue-500 to-indigo-600",
-  },
-  {
-    id: "systems",
-    number: "04",
-    name: "Projects",
-    icon: Code2,
-    activeColor: "from-emerald-500 to-teal-600",
-  },
-  {
-    id: "aistudio",
-    number: "05",
-    name: "AI Studio",
-    icon: Cpu,
-    activeColor: "from-amber-500 to-orange-600",
-  },
-  {
-    id: "trajectory",
-    number: "06",
-    name: "Journey",
-    icon: Calendar,
-    activeColor: "from-purple-500 to-pink-600",
-  },
-  {
-    id: "terminal",
-    number: "07",
-    name: "Contact",
-    icon: Terminal,
-    activeColor: "from-rose-500 to-cyan-600",
-  },
-];
 
 export default function InteractiveStageModal({
   isOpen,

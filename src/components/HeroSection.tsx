@@ -1,12 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  ArrowRight,
-  Zap,
-  Code2,
-  Sliders,
-} from "lucide-react";
+import { ArrowRight, Zap, Code2, Sliders } from "lucide-react";
 import GitHubIcon from "@/components/icons/GitHubIcon";
 import { PERSONAL_INFO, HERO_MARQUEE_ITEMS } from "@/data/portfolio-data";
 import HolographicPortrait from "@/components/HolographicPortrait";
@@ -26,10 +21,7 @@ export default function HeroSection({
   };
 
   return (
-    <section
-      id="hero"
-      className={heroStyles.section}
-    >
+    <section id="hero" className={heroStyles.section}>
       {/* Main Full-Width Hero Container */}
       <div className={heroStyles.container}>
         {/* Top Status Indicators (Prioritizing Skills & Architecture) */}

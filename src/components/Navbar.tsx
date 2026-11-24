@@ -6,29 +6,17 @@ import {
   Menu, 
   X, 
   Sparkles, 
-  Brain, 
   Sliders, 
   Volume2, 
-  VolumeX, 
-  Zap 
+  VolumeX 
 } from "lucide-react";
-import { PERSONAL_INFO } from "@/data/portfolio-data";
+import { PERSONAL_INFO, NAV_LINKS } from "@/constants";
 import { sound } from "@/lib/sound";
 import { navbarStyles } from "@/styles/navbar.styles";
 
 interface NavbarProps {
   onOpenStageMode?: () => void;
 }
-
-const NAV_LINKS = [
-  { name: "Overview", href: "#hero", id: "hero" },
-  { name: "Skills", href: "#skills-3d", id: "skills-3d", icon: Zap },
-  { name: "Thinking Architecture", href: "#philosophy", id: "philosophy", icon: Brain },
-  { name: "Selected Works", href: "#projects", id: "projects" },
-  { name: "AI Prompt Lab", href: "#aistudio", id: "aistudio", highlight: true },
-  { name: "Journey", href: "#experience", id: "experience" },
-  { name: "Contact", href: "#contact", id: "contact" },
-];
 
 export default function Navbar({ onOpenStageMode }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

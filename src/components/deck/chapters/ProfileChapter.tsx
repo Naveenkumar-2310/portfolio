@@ -6,30 +6,9 @@ import HolographicPortrait from "@/components/HolographicPortrait";
 import { StageStatCard } from "@/components/deck";
 import TypewriterName from "../TypewriterName";
 import { stageModalStyles } from "@/styles/interactive-stage.styles";
+import { PROFILE_STATS_DATA } from "@/constants";
 
-export const PROFILE_STATS_DATA = [
-  {
-    id: "academics",
-    label: "Academic Rigor",
-    value: "9.10 CGPA",
-    subtext: "First Class with Distinction",
-    theme: "amber" as const,
-  },
-  {
-    id: "consulting",
-    label: "Current Position",
-    value: "Consultant",
-    subtext: "Virdhi Tech Lab (02/2025–Present)",
-    theme: "cyan" as const,
-  },
-  {
-    id: "solo-project",
-    label: "Featured Solo",
-    value: "Daily Tracker",
-    subtext: "100% Solo Personal Project",
-    theme: "emerald" as const,
-  },
-];
+export { PROFILE_STATS_DATA };
 
 export default function ProfileChapter() {
   return (

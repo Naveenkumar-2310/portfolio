@@ -59,3 +59,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   - Map over strongly-typed configuration/data arrays instead of hardcoding repetitive DOM blocks.
 - **Data-Driven Orchestration**:
   - Keep parent components and modal orchestrators lean by delegating specialized rendering to subcomponents with typed theme variants.
+
+## 8. Modular Constants Architecture
+- **Separation of Constants**:
+  - Store all static content, data configurations, and domain records in dedicated files under `src/constants/<feature>.constants.ts` (e.g., `personal.constants.ts`, `projects.constants.ts`, `skills.constants.ts`, `experience.constants.ts`, `philosophy.constants.ts`, `ai-studio.constants.ts`, `terminal.constants.ts`, `navigation.constants.ts`, `deck.constants.ts`, `ui.constants.ts`).
+  - Centralize re-exports via `src/constants/index.ts` and keep `src/data/portfolio-data.ts` re-exporting from `@/constants` for backwards compatibility.
+  - Never clutter React components with raw static data arrays or configuration constants.
+

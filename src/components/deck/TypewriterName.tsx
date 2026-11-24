@@ -12,21 +12,21 @@ interface TypewriterNameProps {
 /**
  * Fully automated high-velocity animated typewriter component for Naveen Kumar P
  * - Starts typing automatically on mount without requiring any user click or interaction (Identical to Deck Mode).
- * - Smooth 38ms typing cadence so the animation is clearly visible upon page open.
+ * - Smooth 45ms typing cadence matching Deck Mode so the animation is clearly visible upon page open.
  * - Strictly preserves AGENTS.md Rule 1 (Single Line, no wrap, whitespace-nowrap).
  */
 export default function TypewriterName({
   as: Component = "h2",
   className = "font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap inline-flex items-center select-none",
-  speed = 38,
-  delay = 120,
+  speed = 45,
+  delay = 200,
 }: TypewriterNameProps) {
   const firstName = "Naveen";
   const lastName = "Kumar P";
   const fullLength = firstName.length + 1 + lastName.length; // 6 + 1 + 7 = 14
 
-  // Start with 1 so the letter 'N' + caret are immediately visible, then automatically stream characters
-  const [typedCount, setTypedCount] = useState(1);
+  // Start with 0 so the pulsing caret is immediately visible on mount, then automatically streams characters
+  const [typedCount, setTypedCount] = useState(0);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;

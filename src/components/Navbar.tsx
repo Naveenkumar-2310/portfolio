@@ -36,10 +36,10 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
   const [soundActive, setSoundActive] = useState(true);
 
   useEffect(() => {
-    const determineActiveSection = () => {
-      // 1. Check window.location.hash if present
+    const updateActiveSection = () => {
+      // 1. If a hash is present in URL on initial mount before scroll stabilizes
       const rawHash = window.location.hash.replace("#", "");
-      if (rawHash) {
+      if (rawHash && window.scrollY < 120) {
         const normalized = rawHash === "skills" ? "skills-3d" : rawHash;
         const matched = NAV_LINKS.find(
           (l) => l.id === normalized || l.href === `#${rawHash}` || l.href === `#${normalized}`
@@ -50,7 +50,21 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
         }
       }
 
-      // 2. Check current viewport position against registered section elements
+      // 2. If at very top of the document
+      if (window.scrollY < 120) {
+        setActiveSection("hero");
+        return;
+      }
+
+      // 2. If at very bottom of the document
+      const docHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      if (window.scrollY + windowHeight >= docHeight - 80) {
+        setActiveSection("contact");
+        return;
+      }
+
+      // 3. Scan sections by viewport bounding client rect
       const sections = [
         "hero",
         "skills-3d",
@@ -60,36 +74,53 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
         "experience",
         "contact",
       ];
-      const scrollPos = window.scrollY + 280;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
+      // Primary inspection focus line is 35% from top of viewport
+      const focusLine = windowHeight * 0.35;
+
+      for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
-          const top = el.offsetTop;
-          if (scrollPos >= top) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= focusLine && rect.bottom >= focusLine) {
             setActiveSection(section);
             return;
           }
         }
       }
-      setActiveSection("hero");
+
+      // 4. Fallback: find section with nearest top boundary
+      let closestSection = "hero";
+      let minDistance = Infinity;
+
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const dist = Math.abs(rect.top - 120);
+          if (dist < minDistance && rect.bottom > 120) {
+            minDistance = dist;
+            closestSection = section;
+          }
+        }
+      }
+      setActiveSection(closestSection);
     };
 
-    // Evaluate immediately on mount
-    determineActiveSection();
+    // Schedule initial check asynchronously to comply with React 19 set-state-in-effect rule
+    const frameId = requestAnimationFrame(updateActiveSection);
+    const timer1 = setTimeout(updateActiveSection, 150);
+    const timer2 = setTimeout(updateActiveSection, 450);
 
-    // Catch browser asynchronous scroll restoration upon page refresh
-    const frameId = requestAnimationFrame(determineActiveSection);
-    const timerId = setTimeout(determineActiveSection, 180);
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("hashchange", updateActiveSection);
 
-    window.addEventListener("scroll", determineActiveSection, { passive: true });
-    window.addEventListener("hashchange", determineActiveSection);
     return () => {
       cancelAnimationFrame(frameId);
-      clearTimeout(timerId);
-      window.removeEventListener("scroll", determineActiveSection);
-      window.removeEventListener("hashchange", determineActiveSection);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
     };
   }, []);
 

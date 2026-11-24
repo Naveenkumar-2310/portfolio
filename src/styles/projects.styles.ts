@@ -46,3 +46,4 @@ export const projectsSectionStyles = {
   modalFooter:
     "p-3.5 sm:p-5 sm:p-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between font-mono text-xs gap-3 shrink-0 bg-[#0d1017]/95",
 };
+

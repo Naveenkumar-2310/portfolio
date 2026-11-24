@@ -32,3 +32,4 @@ export const contactSectionStyles = {
   submitButton:
     "w-full py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-mono font-semibold text-xs sm:text-sm bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2.5 transition-all duration-300 active:scale-[0.98] disabled:opacity-50 cursor-pointer",
 };
+

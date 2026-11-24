@@ -109,3 +109,4 @@ export const stageProjectThemes = {
   parenting: "bg-gradient-to-br from-purple-950/40 via-pink-950/20 to-black border border-purple-500/40 hover:border-purple-400",
   virdhitechofficial: "bg-gradient-to-br from-indigo-950/40 via-zinc-950 to-black border border-indigo-500/40 hover:border-indigo-400",
 };
+

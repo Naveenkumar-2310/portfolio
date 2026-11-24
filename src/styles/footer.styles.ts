@@ -25,3 +25,4 @@ export const footerStyles = {
   backToTopButton:
     "p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-cyan-500/15 border border-cyan-500/40 hover:bg-cyan-500/30 text-cyan-300 transition-colors ml-1 sm:ml-2 shadow-lg shadow-cyan-500/20 cursor-pointer",
 };
+

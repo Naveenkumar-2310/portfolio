@@ -74,3 +74,4 @@ export default function StageProjectCard({ project }: StageProjectCardProps) {
     </div>
   );
 }
+

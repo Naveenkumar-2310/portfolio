@@ -11,6 +11,7 @@ import GitHubIcon from "@/components/icons/GitHubIcon";
 import { PERSONAL_INFO, HERO_MARQUEE_ITEMS } from "@/data/portfolio-data";
 import HolographicPortrait from "@/components/HolographicPortrait";
 import { sound } from "@/lib/sound";
+import { TypewriterName } from "@/components/deck";
 
 export default function HeroSection({
   onOpenStageMode,
@@ -56,10 +57,11 @@ export default function HeroSection({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Main Huge Typography */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Name strictly on a single line on all screen sizes */}
-            <h1 className="font-display text-[clamp(1.85rem,5.2vw,4.75rem)] lg:text-7xl xl:text-8xl font-extrabold tracking-tight text-white whitespace-nowrap leading-none overflow-visible select-none">
-              Naveen <span className="text-gradient-aurora">Kumar P</span>
-            </h1>
+            {/* Name strictly on a single line on all screen sizes with animated typewriter effect */}
+            <TypewriterName
+              as="h1"
+              className="font-display text-[clamp(1.85rem,5.2vw,4.75rem)] lg:text-7xl xl:text-8xl font-extrabold tracking-tight text-white whitespace-nowrap leading-none overflow-visible select-none inline-flex items-center"
+            />
 
             <p className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-zinc-200 leading-tight">
               Software Consultant &amp; Full-Stack AI Engineer

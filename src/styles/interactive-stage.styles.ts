@@ -18,7 +18,7 @@ export const stageModalStyles = {
   header:
     "relative z-10 px-3 sm:px-6 py-2.5 sm:py-3.5 bg-zinc-950/90 border-b border-white/10 flex items-center justify-between gap-2 sm:gap-4 flex-nowrap shrink-0 overflow-x-auto no-scrollbar backdrop-blur-xl",
   headerTabStrip:
-    "flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/5 font-mono text-xs overflow-x-auto no-scrollbar shrink-0",
+    "flex items-center gap-1 p-1 rounded-xl bg-white/5 border border-white/5 font-mono text-xs overflow-x-auto no-scrollbar shrink-0 max-w-[50vw] sm:max-w-none",
   tabButtonBase:
     "flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer",
   tabButtonActive: (color: string) =>

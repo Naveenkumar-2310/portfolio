@@ -35,25 +35,61 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
   const [soundActive, setSoundActive] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "skills-3d", "philosophy", "projects", "aistudio", "experience", "contact"];
-      const scrollPos = window.scrollY + 250;
+    const determineActiveSection = () => {
+      // 1. Check window.location.hash if present
+      const rawHash = window.location.hash.replace("#", "");
+      if (rawHash) {
+        const normalized = rawHash === "skills" ? "skills-3d" : rawHash;
+        const matched = NAV_LINKS.find(
+          (l) => l.id === normalized || l.href === `#${rawHash}` || l.href === `#${normalized}`
+        );
+        if (matched) {
+          setActiveSection(matched.id);
+          return;
+        }
+      }
 
-      for (const section of sections) {
+      // 2. Check current viewport position against registered section elements
+      const sections = [
+        "hero",
+        "skills-3d",
+        "philosophy",
+        "projects",
+        "aistudio",
+        "experience",
+        "contact",
+      ];
+      const scrollPos = window.scrollY + 280;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
         const el = document.getElementById(section);
         if (el) {
           const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
+          if (scrollPos >= top) {
             setActiveSection(section);
-            break;
+            return;
           }
         }
       }
+      setActiveSection("hero");
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Evaluate immediately on mount
+    determineActiveSection();
+
+    // Catch browser asynchronous scroll restoration upon page refresh
+    const frameId = requestAnimationFrame(determineActiveSection);
+    const timerId = setTimeout(determineActiveSection, 180);
+
+    window.addEventListener("scroll", determineActiveSection, { passive: true });
+    window.addEventListener("hashchange", determineActiveSection);
+    return () => {
+      cancelAnimationFrame(frameId);
+      clearTimeout(timerId);
+      window.removeEventListener("scroll", determineActiveSection);
+      window.removeEventListener("hashchange", determineActiveSection);
+    };
   }, []);
 
   const toggleSound = () => {
@@ -69,6 +105,11 @@ export default function Navbar({ onOpenStageMode }: NavbarProps) {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      if (typeof window !== "undefined") {
+        window.history.replaceState(null, "", href);
+        const sectionId = href.replace("#", "");
+        setActiveSection(sectionId === "skills" ? "skills-3d" : sectionId);
+      }
     }
   };
 

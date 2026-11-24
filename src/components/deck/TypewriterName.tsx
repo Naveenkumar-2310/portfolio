@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 interface TypewriterNameProps {
+  as?: "h1" | "h2" | "span";
   className?: string;
   speed?: number;
   delay?: number;
@@ -13,6 +14,7 @@ interface TypewriterNameProps {
  * Adheres strictly to AGENTS.md Rule 1 (Single Line, no wrap, whitespace-nowrap)
  */
 export default function TypewriterName({
+  as: Component = "h2",
   className = "font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap inline-flex items-center",
   speed = 65,
   delay = 120,
@@ -51,18 +53,18 @@ export default function TypewriterName({
   const isTyping = typedCount < fullLength;
 
   return (
-    <h2 className={className}>
+    <Component className={className}>
       <span>{displayedFirst}</span>
       {hasSpace && <span>&nbsp;</span>}
       {displayedLast && (
         <span className="text-gradient-aurora">{displayedLast}</span>
       )}
       <span
-        className={`inline-block w-[3px] sm:w-[4px] h-[0.75em] bg-cyan-400 ml-1.5 align-middle ${
+        className={`inline-block w-[3px] sm:w-[4px] lg:w-[5px] h-[0.75em] bg-cyan-400 ml-1.5 sm:ml-2 align-middle ${
           isTyping ? "animate-pulse" : "animate-pulse opacity-75"
         }`}
         aria-hidden="true"
       />
-    </h2>
+    </Component>
   );
 }

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import {
   Sparkles,
+  Zap,
   Brain,
   Code2,
   Cpu,
@@ -18,6 +19,7 @@ import { sound } from "@/lib/sound";
 import { stageModalStyles } from "@/styles/interactive-stage.styles";
 import {
   ProfileChapter,
+  SkillsChapter,
   ThinkingChapter,
   ProjectsChapter,
   AIStudioChapter,
@@ -42,36 +44,43 @@ const WORKSTATION_STAGES = [
     activeColor: "from-cyan-500 to-blue-600",
   },
   {
-    id: "thinking",
+    id: "skills",
     number: "02",
+    name: "Skills",
+    icon: Zap,
+    activeColor: "from-amber-400 to-cyan-500",
+  },
+  {
+    id: "thinking",
+    number: "03",
     name: "Thinking",
     icon: Brain,
     activeColor: "from-blue-500 to-indigo-600",
   },
   {
     id: "systems",
-    number: "03",
+    number: "04",
     name: "Projects",
     icon: Code2,
     activeColor: "from-emerald-500 to-teal-600",
   },
   {
     id: "aistudio",
-    number: "04",
+    number: "05",
     name: "AI Studio",
     icon: Cpu,
     activeColor: "from-amber-500 to-orange-600",
   },
   {
     id: "trajectory",
-    number: "05",
+    number: "06",
     name: "Journey",
     icon: Calendar,
     activeColor: "from-purple-500 to-pink-600",
   },
   {
     id: "terminal",
-    number: "06",
+    number: "07",
     name: "Contact",
     icon: Terminal,
     activeColor: "from-rose-500 to-cyan-600",
@@ -231,20 +240,23 @@ export default function InteractiveStageModal({
             {/* Chapter 01: Profile */}
             {activeStage === 0 && <ProfileChapter />}
 
-            {/* Chapter 02: Thinking */}
-            {activeStage === 1 && <ThinkingChapter />}
+            {/* Chapter 02: Skills */}
+            {activeStage === 1 && <SkillsChapter />}
 
-            {/* Chapter 03: Projects */}
-            {activeStage === 2 && <ProjectsChapter />}
+            {/* Chapter 03: Thinking */}
+            {activeStage === 2 && <ThinkingChapter />}
 
-            {/* Chapter 04: AI Studio */}
-            {activeStage === 3 && <AIStudioChapter />}
+            {/* Chapter 04: Projects */}
+            {activeStage === 3 && <ProjectsChapter />}
 
-            {/* Chapter 05: Journey */}
-            {activeStage === 4 && <JourneyChapter />}
+            {/* Chapter 05: AI Studio */}
+            {activeStage === 4 && <AIStudioChapter />}
 
-            {/* Chapter 06: Contact */}
-            {activeStage === 5 && (
+            {/* Chapter 06: Journey */}
+            {activeStage === 5 && <JourneyChapter />}
+
+            {/* Chapter 07: Contact */}
+            {activeStage === 6 && (
               <ContactChapter
                 onCopyEmail={copyEmail}
                 copiedEmail={copiedEmail}

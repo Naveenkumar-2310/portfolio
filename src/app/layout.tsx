@@ -40,8 +40,11 @@ export const metadata: Metadata = {
     "Chennai",
   ],
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
     apple: "/icon.svg",
   },
 };

@@ -24,6 +24,8 @@ export const navbarStyles = {
     "pointer-events-auto p-2 rounded-full glass-panel border border-white/10 hover:border-cyan-400/40 text-zinc-400 hover:text-white transition-all cursor-pointer",
   mobileMenuToggle:
     "pointer-events-auto lg:hidden p-2 rounded-full glass-panel border border-white/10 text-zinc-300 hover:text-white transition-all cursor-pointer",
+  mobileMenu:
+    "pointer-events-auto lg:hidden mt-3 p-4 rounded-2xl glass-panel border border-white/10 backdrop-blur-2xl shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200",
   mobileDrawer:
     "fixed inset-0 z-50 bg-black/95 backdrop-blur-3xl flex flex-col justify-between p-6 sm:p-8 animate-in fade-in duration-300 select-none",
 };

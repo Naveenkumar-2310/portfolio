@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { sound } from "@/lib/sound";
 
 interface TypewriterNameProps {
   as?: "h1" | "h2" | "span";
@@ -11,34 +10,28 @@ interface TypewriterNameProps {
 }
 
 /**
- * Interactive high-velocity animated typewriter component for Naveen Kumar P
- * - Starts typing automatically on mount.
- * - Interactive: Clicking on the name replays the typing animation anytime.
+ * Fully automated high-velocity animated typewriter component for Naveen Kumar P
+ * - Starts typing automatically on mount without requiring any user click or interaction (Identical to Deck Mode).
+ * - Smooth 38ms typing cadence so the animation is clearly visible upon page open.
  * - Strictly preserves AGENTS.md Rule 1 (Single Line, no wrap, whitespace-nowrap).
  */
 export default function TypewriterName({
   as: Component = "h2",
-  className = "font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap inline-flex items-center select-none cursor-pointer group",
-  speed = 28,
-  delay = 0,
+  className = "font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none whitespace-nowrap inline-flex items-center select-none",
+  speed = 38,
+  delay = 120,
 }: TypewriterNameProps) {
   const firstName = "Naveen";
   const lastName = "Kumar P";
   const fullLength = firstName.length + 1 + lastName.length; // 6 + 1 + 7 = 14
 
+  // Start with 1 so the letter 'N' + caret are immediately visible, then automatically stream characters
   const [typedCount, setTypedCount] = useState(1);
-  const [replayTrigger, setReplayTrigger] = useState(0);
-
-  const handleReplay = () => {
-    sound.click();
-    setTypedCount(1);
-    setReplayTrigger((prev) => prev + 1);
-  };
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
 
-    const startTyping = () => {
+    const timeoutId = setTimeout(() => {
       intervalId = setInterval(() => {
         setTypedCount((prev) => {
           if (prev >= fullLength) {
@@ -48,21 +41,13 @@ export default function TypewriterName({
           return prev + 1;
         });
       }, speed);
-    };
+    }, delay);
 
-    if (delay > 0) {
-      const timeoutId = setTimeout(startTyping, delay);
-      return () => {
-        clearTimeout(timeoutId);
-        if (intervalId) clearInterval(intervalId);
-      };
-    } else {
-      startTyping();
-      return () => {
-        if (intervalId) clearInterval(intervalId);
-      };
-    }
-  }, [fullLength, speed, delay, replayTrigger]);
+    return () => {
+      clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [fullLength, speed, delay]);
 
   const displayedFirst =
     typedCount <= 6 ? firstName.slice(0, typedCount) : firstName;
@@ -72,12 +57,7 @@ export default function TypewriterName({
   const isTyping = typedCount < fullLength;
 
   return (
-    <Component
-      onClick={handleReplay}
-      className={className}
-      title="Click to replay typing animation"
-      aria-label="Naveen Kumar P"
-    >
+    <Component className={className} aria-label="Naveen Kumar P">
       <span>{displayedFirst}</span>
       {hasSpace && <span>&nbsp;</span>}
       {displayedLast && (

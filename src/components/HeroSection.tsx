@@ -62,6 +62,8 @@ export default function HeroSection({
             <TypewriterName
               as="h1"
               className={heroStyles.nameHeading}
+              speed={55}
+              delay={350}
             />
 
             <p className={heroStyles.roleSubtitle}>

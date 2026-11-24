@@ -25,6 +25,7 @@ import {
   AIStudioChapter,
   JourneyChapter,
   ContactChapter,
+  TypewriterName,
 } from "@/components/deck";
 
 const emptySubscribe = () => () => {};
@@ -179,9 +180,12 @@ export default function InteractiveStageModal({
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/40" />
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/40" />
             </div>
-            <span className="font-mono text-xs sm:text-sm text-white font-bold tracking-tight whitespace-nowrap">
-              Naveen Kumar P
-            </span>
+            <TypewriterName
+              as="span"
+              className="font-mono text-xs sm:text-sm text-white font-bold tracking-tight whitespace-nowrap inline-flex items-center"
+              speed={45}
+              delay={200}
+            />
             <span className="hidden md:inline-flex items-center gap-1 font-mono text-[10px] text-cyan-300 px-2 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 whitespace-nowrap">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
               Deck
